@@ -79,3 +79,16 @@ describe('resolvePlace', () => {
     expect(labels.find((c) => c.name === 'Meridian')!.lng).toBeCloseTo(180.3, 3);
   });
 });
+
+describe('browser fetch semantics', () => {
+  it('calls fetch without binding it to the repository (browsers throw "Illegal invocation")', async () => {
+    const manifest = parseManifest(await readJson('manifest.json'));
+    const inner = fixtureFetch().fetch;
+    const strict = function (this: unknown, input: RequestInfo | URL, init?: RequestInit) {
+      if (this !== undefined && this !== globalThis) throw new TypeError("Failed to execute 'fetch' on 'Window': Illegal invocation");
+      return inner(input, init);
+    } as typeof fetch;
+    const r = new PlaceRepository('/population-peaks/data/', manifest, strict);
+    await expect(r.country('ZZ')).resolves.toMatchObject({ id: 'ZZ' });
+  });
+});

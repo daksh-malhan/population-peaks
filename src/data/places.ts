@@ -63,17 +63,20 @@ export class PlaceRepository {
   private readonly files = new Map<string, Promise<PlaceFile>>();
   private readonly povFiles = new Map<string, Promise<Outline>>();
   private readonly known: Set<string>;
+  private readonly get: (url: string) => Promise<Response>;
 
   constructor(
     private readonly dataUrl: string,
     readonly manifest: Manifest,
-    private readonly fetchImpl: typeof fetch = fetch,
+    fetchImpl: typeof fetch = fetch,
   ) {
     this.known = new Set(manifest.countries.map((c) => c.id));
+    // Call fetch unbound: browsers throw "Illegal invocation" if `this` is not the window.
+    this.get = (url) => fetchImpl(url, { credentials: 'omit' });
   }
 
   private async json(path: string): Promise<unknown> {
-    const res = await this.fetchImpl(`${this.dataUrl}${path}`, { credentials: 'omit' });
+    const res = await this.get(`${this.dataUrl}${path}`);
     if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
     return res.json();
   }
