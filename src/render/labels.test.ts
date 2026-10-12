@@ -63,3 +63,13 @@ describe('placeLabels', () => {
     expect(p!.visible).toBe(false);
   });
 });
+
+describe('placeLabels obstacles', () => {
+  it('keeps labels off the title and footer', () => {
+    const title = { x: 0, y: 0, w: 400, h: 120 };
+    const [p] = placeLabels([{ id: 'a', x: 200, y: 140, w: 80, h: 14 }], { width: 400, height: 300 }, 18, [title]);
+    expect(p!.visible).toBe(true);
+    expect(p!.side).not.toBe('above');
+    expect(p!.y).toBeGreaterThanOrEqual(120);
+  });
+});

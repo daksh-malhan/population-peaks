@@ -47,7 +47,9 @@ interface Runtime {
 
 export interface Exporter {
   canPrint(scene: MapScene): boolean;
-  export(format: ExportFormat, ctx: ExportContext): Promise<void>;
+  export(format: ExportFormat, ctx: ExportContext): Promise<'downloaded' | 'shared' | 'cancelled'>;
+  /** The composed poster, for automated preview rendering. */
+  render(format: ExportFormat | 'og', ctx: ExportContext): Promise<HTMLCanvasElement>;
 }
 
 export interface ExportContext {
@@ -170,7 +172,8 @@ export class App {
 
   start(): void {
     this.renderAll();
-    void this.showActive();
+    const ready = this.showActive();
+    this.exposeAutomation(ready);
     void this.loadOthers();
   }
 
@@ -517,15 +520,9 @@ export class App {
     this.exporting = true;
     this.renderPanel();
     try {
-      await this.exporter.export(format, {
-        scene: this.scene,
-        title: spec.ti ?? defaultTitle(rt.place.name),
-        subtitle: spec.st ?? this.subtitleFor(spec),
-        author: this.state.author,
-        paletteId: this.state.palette,
-        labels: this.activeLabels,
-        fileName: `${slug(rt.place.name)}-population-${format}.png`,
-      });
+      const result = await this.exporter.export(format, this.exportContext(format));
+      if (result === 'downloaded') this.toaster.show('Poster saved to your downloads');
+      else if (result === 'shared') this.toaster.show('Poster shared');
     } catch (e) {
       console.error(e);
       this.toaster.show("Couldn't export the poster. Try a smaller size or another browser.", 'error');
@@ -533,6 +530,34 @@ export class App {
       this.exporting = false;
       this.renderPanel();
     }
+  }
+
+  private exportContext(format: string): ExportContext {
+    const rt = this.activeRuntime;
+    const spec = this.activeSpec;
+    const name = rt?.place?.name ?? 'place';
+    return {
+      scene: this.scene,
+      title: spec?.ti ?? defaultTitle(name),
+      subtitle: spec ? (spec.st ?? this.subtitleFor(spec)) : '',
+      author: this.state.author,
+      paletteId: this.state.palette,
+      labels: this.activeLabels,
+      fileName: `${slug(name)}-population-${format}.png`,
+    };
+  }
+
+  /** Test and preview-rendering hooks: exposed to automated browsers (and the dev server), never to visitors. */
+  private exposeAutomation(ready: Promise<void>): void {
+    if (!navigator.webdriver && !import.meta.env.DEV) return;
+    Object.assign(window, {
+      __pp: {
+        ready,
+        poster: async (format: ExportFormat | 'og') => (await this.exporter.render(format, this.exportContext(format))).toDataURL('image/png'),
+        loseContext: () => this.canvas.getContext('webgl2')?.getExtension('WEBGL_lose_context'),
+        state: () => toShared(this.state),
+      },
+    });
   }
 
   // ---- rendering ----------------------------------------------------------

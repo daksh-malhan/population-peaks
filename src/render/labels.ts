@@ -60,9 +60,19 @@ export interface Placement {
   visible: boolean;
 }
 
-/** Greedy placement in priority order: above the point, else right, left, below; hidden if nothing fits. */
-export function placeLabels(anchors: readonly Anchor[], frame: { width: number; height: number }, gap: number): Placement[] {
-  const boxes: { x: number; y: number; w: number; h: number }[] = [];
+export interface Box {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * Greedy placement in priority order: above the point, else right, left, below; hidden if
+ * nothing fits. `obstacles` (title, legend, footer) are areas labels must not cover.
+ */
+export function placeLabels(anchors: readonly Anchor[], frame: { width: number; height: number }, gap: number, obstacles: readonly Box[] = []): Placement[] {
+  const boxes: Box[] = [...obstacles];
   return anchors.map((a) => {
     const options: [Side, number, number][] = [
       ['above', a.x - a.w / 2, a.y - gap - a.h],
