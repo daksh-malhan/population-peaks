@@ -936,9 +936,15 @@ a {
     flex: 1 1 100%;
   }
 
+  /* Icon-only buttons on phones; the text stays for screen readers. */
   .topbar .btn span,
   .topbar-actions .btn span {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .topbar .btn {

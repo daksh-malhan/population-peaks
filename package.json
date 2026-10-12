@@ -18,7 +18,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "fixture": "cd pipeline && .venv/bin/python -m pp_pipeline.fixture --out ../fixtures/data",
-    "test:pipeline": "cd pipeline && .venv/bin/pytest"
+    "test:pipeline": "cd pipeline && .venv/bin/pytest",
+    "build:fixture": "vite build && node scripts/copy-data.mjs fixtures/data dist/data"
   },
   "dependencies": {
     "@fontsource-variable/sora": "5.3.0",

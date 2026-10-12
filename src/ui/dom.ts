@@ -44,6 +44,11 @@ export function svg(tag: string, attrs: Record<string, string | number>, ...chil
   return el as SVGElement;
 }
 
+/** Update text only when it changed (re-setting identical text repaints it and resets LCP). */
+export function setText(el: Element, text: string): void {
+  if (el.textContent !== text) el.textContent = text;
+}
+
 export function clear(el: Element): void {
   el.replaceChildren();
 }

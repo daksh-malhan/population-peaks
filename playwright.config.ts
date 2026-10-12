@@ -11,7 +11,7 @@ export default defineConfig({
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: { baseURL, trace: 'retain-on-failure' },
   webServer: {
-    command: `npm run preview -- --port ${port} --strictPort`,
+    command: `npm run build:fixture && npm run preview -- --port ${port} --strictPort`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

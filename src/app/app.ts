@@ -11,13 +11,14 @@ import { type LabelCandidate, pickLabels } from '../render/labels';
 import { PALETTES, rampColor } from '../render/palettes';
 import { MapScene } from '../render/scene';
 import { AboutDialog, type BorderChoice } from '../ui/aboutDialog';
-import { h } from '../ui/dom';
+import { h, setText } from '../ui/dom';
 import { GalleryStrip } from '../ui/galleryStrip';
 import { icon } from '../ui/icons';
 import { MapLabels } from '../ui/mapLabels';
 import { type ExportFormat, PosterPanel } from '../ui/posterPanel';
 import { SearchBox } from '../ui/searchBox';
 import { drawThumbnail } from '../ui/thumbnail';
+import { timed } from '../perf';
 import { Toaster } from '../ui/toast';
 import { defaultTitle, formatDensity, formatPopulation } from './format';
 import { addCard, type GalleryState, moveActive, removeCard, shareUrl, specFromSearch, toShared, updateCard } from './gallery';
@@ -78,6 +79,11 @@ function expand(b: BBox, frac: number): BBox {
   return [b[0] - dx, b[1] - dy, b[2] + dx, b[3] + dy];
 }
 
+/** Resolves after the browser has painted the current DOM. */
+function afterPaint(): Promise<void> {
+  return new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+}
+
 function slug(s: string): string {
   return s.normalize('NFKD').replace(/\p{M}+/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'poster';
 }
@@ -87,7 +93,8 @@ export class App {
   private readonly runtimes = new Map<string, Runtime>();
   private readonly places: PlaceRepository;
   private readonly regions: RegionClient;
-  private readonly scene: MapScene;
+  /** Created after the first paint, so the page shell (and its title) never waits on WebGL. */
+  private scene: MapScene | null = null;
   private searchIndex: Promise<SearchIndex> | null = null;
   private pov: string | null;
   private dirty = false;
@@ -156,13 +163,11 @@ export class App {
       }),
       onLabelHide: (id) => this.editLabels((lb) => ({ ...lb, hidden: [...new Set([...(lb.hidden ?? []), id])], added: (lb.added ?? []).filter((x) => x !== id) })),
       onLabelAdd: (id) => this.editLabels((lb) => ({ ...lb, added: [...new Set([...(lb.added ?? []), id])], hidden: (lb.hidden ?? []).filter((x) => x !== id) })),
-      onResetView: () => this.scene.resetView(),
+      onResetView: () => this.scene?.resetView(),
       onExport: (format) => void this.exportPoster(format),
     });
     this.about = new AboutDialog(this.borderChoices(), this.prefs.pov, (v) => this.setBorders(v), REPO_URL);
 
-    this.scene = new MapScene(this.canvas, { palette: PALETTES[this.state.palette], heightScale: this.state.height, peak: 1 });
-    this.scene.onRender(() => this.placeLabels());
     this.buildLayout();
     this.applyAccent();
     for (const w of initial.warnings) this.toaster.show(w, 'error', 7000);
@@ -172,7 +177,12 @@ export class App {
 
   start(): void {
     this.renderAll();
-    const ready = this.showActive();
+    const ready = afterPaint().then(() => {
+      this.scene = timed('scene', () => new MapScene(this.canvas, { palette: PALETTES[this.state.palette], heightScale: this.state.height, peak: 1 }));
+      this.scene.onRender(() => this.placeLabels());
+      new ResizeObserver(() => this.scene?.resize()).observe(this.canvas);
+      return this.showActive();
+    });
     this.exposeAutomation(ready);
     void this.loadOthers();
   }
@@ -214,7 +224,6 @@ export class App {
       h('div', { class: 'app' }, header, h('main', { class: 'workspace' }, stage, this.panel.el), this.gallery.el, this.toaster.el),
       this.about.el,
     );
-    new ResizeObserver(() => this.scene.resize()).observe(this.canvas);
     this.canvas.addEventListener('pointermove', (e) => this.onHover(e));
     this.canvas.addEventListener('pointerleave', () => this.tooltip.classList.remove('visible'));
   }
@@ -255,7 +264,7 @@ export class App {
     if (!decoded.state.cards.length) return;
     this.lastHash = location.hash;
     this.state = { ...this.state, cards: decoded.state.cards, active: decoded.state.a ?? 0, palette: decoded.state.pal ?? 'ember', height: decoded.state.h ?? 1, scale: decoded.state.sc ?? 'own', author: decoded.state.au ?? '' };
-    this.scene.setSettings({ palette: PALETTES[this.state.palette], heightScale: this.state.height });
+    this.scene?.setSettings({ palette: PALETTES[this.state.palette], heightScale: this.state.height });
     this.applyAccent();
     this.renderAll();
     void this.showActive();
@@ -291,8 +300,9 @@ export class App {
         rt.grid = grid;
         rt.peak = regionPeak(grid.density, grid.mask);
         rt.cities = await this.places.citiesIn(expand(place.region.bbox, 0.05)).catch(() => []);
-        rt.thumb = h('canvas');
-        drawThumbnail(rt.thumb, grid, PALETTES[this.state.palette]);
+        const thumb = h('canvas');
+        timed('thumbnail', () => drawThumbnail(thumb, grid, PALETTES[this.state.palette]));
+        rt.thumb = thumb;
         rt.status = 'ready';
       } catch (e) {
         console.error(e);
@@ -341,7 +351,7 @@ export class App {
     this.status.hidden = true;
     this.activeRuntime = rt;
     const shape = rt.place.region.shape;
-    this.scene.setRegion(rt.grid, shape.kind === 'polygons' ? shape.polygons : null, rt.place.region.highlight ?? null, {
+    this.scene?.setRegion(rt.grid, shape.kind === 'polygons' ? shape.polygons : null, rt.place.region.highlight ?? null, {
       palette: PALETTES[this.state.palette],
       heightScale: this.state.height,
       peak: this.effectivePeak(rt),
@@ -361,7 +371,7 @@ export class App {
   }
 
   private applyPeak(): void {
-    if (this.activeRuntime) this.scene.setSettings({ peak: this.effectivePeak(this.activeRuntime) });
+    if (this.activeRuntime) this.scene?.setSettings({ peak: this.effectivePeak(this.activeRuntime) });
   }
 
   // ---- labels -------------------------------------------------------------
@@ -391,13 +401,15 @@ export class App {
       added: lb.added ?? [],
       renamed: lb.renamed ?? {},
     });
-    this.scene.requestRender();
+    this.scene?.requestRender();
   }
 
   private placeLabels(): void {
+    const scene = this.scene;
+    if (!scene) return;
     const frame = { width: this.canvas.clientWidth, height: this.canvas.clientHeight };
     this.labels.update(
-      this.activeLabels.map((c) => ({ id: c.id, name: c.name, ...this.scene.project(c.lng, c.lat) })),
+      this.activeLabels.map((c) => ({ id: c.id, name: c.name, ...scene.project(c.lng, c.lat) })),
       frame,
     );
   }
@@ -467,7 +479,7 @@ export class App {
 
   private setPalette(id: PaletteId): void {
     this.commit({ ...this.state, palette: id });
-    this.scene.setSettings({ palette: PALETTES[id] });
+    this.scene?.setSettings({ palette: PALETTES[id] });
     this.applyAccent();
     for (const rt of this.runtimes.values()) if (rt.grid && rt.thumb) drawThumbnail(rt.thumb, rt.grid, PALETTES[id]);
     this.renderGallery();
@@ -475,7 +487,7 @@ export class App {
 
   private setHeight(v: number, final: boolean): void {
     const height = Math.round(Math.min(3, Math.max(0.25, v)) * 100) / 100;
-    this.scene.setSettings({ heightScale: height });
+    this.scene?.setSettings({ heightScale: height });
     if (final) this.commit({ ...this.state, height });
     else this.state = { ...this.state, height };
   }
@@ -516,7 +528,7 @@ export class App {
   private async exportPoster(format: ExportFormat): Promise<void> {
     const rt = this.activeRuntime;
     const spec = this.activeSpec;
-    if (!rt?.place || !spec || this.exporting) return;
+    if (!rt?.place || !spec || !this.scene || this.exporting) return;
     this.exporting = true;
     this.renderPanel();
     try {
@@ -536,6 +548,7 @@ export class App {
     const rt = this.activeRuntime;
     const spec = this.activeSpec;
     const name = rt?.place?.name ?? 'place';
+    if (!this.scene) throw new Error('the map is not ready yet');
     return {
       scene: this.scene,
       title: spec?.ti ?? defaultTitle(name),
@@ -571,17 +584,18 @@ export class App {
 
   private renderStageText(): void {
     const spec = this.activeSpec;
-    const rt = this.activeRuntime;
-    const name = rt?.place?.name ?? '';
-    this.title.textContent = spec && name ? (spec.ti ?? defaultTitle(name)) : '';
-    this.subtitle.textContent = spec ? (spec.st ?? this.subtitleFor(spec)) : '';
+    const rt = this.activeRuntime?.key === (spec && this.runtimeKey(spec)) ? this.activeRuntime : null;
+    // Countries are named in the manifest, so the title can show before the map is drawn.
+    const name = rt?.place?.name ?? (spec?.k === 'c' ? (this.manifest.countries.find((c) => c.id === spec.id)?.name ?? '') : '');
+    setText(this.title, spec && name ? (spec.ti ?? defaultTitle(name)) : '');
+    setText(this.subtitle, spec ? (spec.st ?? this.subtitleFor(spec)) : '');
     if (rt?.grid && rt.place) {
       const { population, peakDensity, peak } = rt.grid.stats;
       const near = this.nearestCity(peak[0], peak[1]);
-      this.stats.replaceChildren(
-        h('span', { text: `${formatPopulation(population)} people` }),
-        h('span', { class: 'muted', text: `Peak ${formatDensity(peakDensity)}${near ? ` near ${near}` : ''}` }),
-      );
+      const lines = [`${formatPopulation(population)} people`, `Peak ${formatDensity(peakDensity)}${near ? ` near ${near}` : ''}`];
+      if (this.stats.textContent !== lines.join('')) {
+        this.stats.replaceChildren(h('span', { text: lines[0] }), h('span', { class: 'muted', text: lines[1] }));
+      }
       this.canvas.setAttribute(
         'aria-label',
         `3D population map of ${name}. About ${formatPopulation(population).replace('≈ ', '')} people; the densest area${near ? `, near ${near},` : ''} has about ${formatDensity(peakDensity).replace(' /km²', '')} people per square kilometre.`,
@@ -641,8 +655,8 @@ export class App {
       radiusKm: spec?.k === 't' ? (spec.r ?? 40) : null,
       labels: this.activeLabels.map((l) => ({ id: l.id, name: l.name, original: original.get(l.id) ?? l.name })),
       labelChoices: (rt?.cities ?? []).filter((c) => !shown.has(c.id) && inside(c.lng, c.lat)).slice(0, 30).map((c) => ({ id: c.id, name: c.name })),
-      canPrint: this.exporter.canPrint(this.scene),
-      busy: this.exporting,
+      canPrint: this.scene ? this.exporter.canPrint(this.scene) : false,
+      busy: this.exporting || !this.scene,
     });
   }
 
@@ -653,7 +667,7 @@ export class App {
   }
 
   private onHover(e: PointerEvent): void {
-    if (e.pointerType !== 'mouse') return;
+    if (e.pointerType !== 'mouse' || !this.scene) return;
     const d = this.scene.densityAt(e.clientX, e.clientY);
     if (d === null) {
       this.tooltip.classList.remove('visible');

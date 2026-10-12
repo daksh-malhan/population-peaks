@@ -22,6 +22,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import type { MultiPolygon } from '../geo/geomCodec';
+import { timed } from '../perf';
 import { type Laea, makeLaea } from '../geo/laea';
 import type { RegionGrid } from '../region/types';
 import { buildHeights, colorT, glowFor } from './heightfield';
@@ -221,8 +222,8 @@ export class MapScene {
     this.outlines = { region, highlight };
     if (settings) this.settings = { ...this.settings, ...settings };
     this.cellWorld = WORLD / Math.max(grid.width, grid.height);
-    this.rebuildMesh();
-    this.resetView();
+    timed('mesh', () => this.rebuildMesh());
+    timed('fit', () => this.resetView());
   }
 
   setSettings(partial: Partial<SceneSettings>): void {
@@ -262,22 +263,28 @@ export class MapScene {
         col[i * 3 + 2] = lut[k + 2]!;
       }
     }
-    const idx: number[] = [];
+    const idx = new Uint32Array((W - 1) * (H - 1) * 6);
+    let n = 0;
     for (let r = 0; r < H - 1; r++) {
       for (let c = 0; c < W - 1; c++) {
         const a = r * W + c;
         const b = a + 1;
         const d = a + W;
         const e = d + 1;
-        if (Math.max(mask[a]!, mask[b]!, mask[d]!, mask[e]!) < 0.02) continue;
-        idx.push(a, d, b, b, d, e);
+        if (mask[a]! < 0.02 && mask[b]! < 0.02 && mask[d]! < 0.02 && mask[e]! < 0.02) continue;
+        idx[n++] = a;
+        idx[n++] = d;
+        idx[n++] = b;
+        idx[n++] = b;
+        idx[n++] = d;
+        idx[n++] = e;
       }
     }
     const geo = new BufferGeometry();
     geo.setAttribute('position', new BufferAttribute(pos, 3));
     geo.setAttribute('color', new BufferAttribute(col, 3));
     geo.setAttribute('mask', new BufferAttribute(mask.slice(), 1));
-    geo.setIndex(W * H > 65535 ? new BufferAttribute(Uint32Array.from(idx), 1) : idx);
+    geo.setIndex(new BufferAttribute(idx.subarray(0, n), 1));
     geo.computeVertexNormals();
 
     if (this.mesh) {
@@ -481,11 +488,13 @@ export class MapScene {
   }
 
   requestRender(): void {
-    if (this.frame || this.lost || this.disposed) return;
+    // Nothing to draw until a region arrives; an empty first frame would still compile every
+    // shader and block the paint of the page's title.
+    if (this.frame || this.lost || this.disposed || !this.grid) return;
     this.frame = requestAnimationFrame(() => {
       this.frame = 0;
       const moving = this.controls.update();
-      this.composer.render();
+      timed('frame', () => this.composer.render());
       for (const fn of this.listeners) fn();
       if (moving) this.requestRender();
     });
