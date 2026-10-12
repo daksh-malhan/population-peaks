@@ -567,6 +567,15 @@ export class App {
       __pp: {
         ready,
         poster: async (format: ExportFormat | 'og') => (await this.exporter.render(format, this.exportContext(format))).toDataURL('image/png'),
+        image: async (format: ExportFormat | 'og', mime = 'image/png', quality = 0.9, width?: number) => {
+          const full = await this.exporter.render(format, this.exportContext(format));
+          if (!width || width >= full.width) return full.toDataURL(mime, quality);
+          const small = h('canvas');
+          small.width = width;
+          small.height = Math.round((full.height * width) / full.width);
+          small.getContext('2d')?.drawImage(full, 0, 0, small.width, small.height);
+          return small.toDataURL(mime, quality);
+        },
         loseContext: () => this.canvas.getContext('webgl2')?.getExtension('WEBGL_lose_context'),
         state: () => toShared(this.state),
       },

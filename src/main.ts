@@ -36,7 +36,7 @@ function previewFor(manifest: Manifest): HTMLElement | null {
   const m = new RegExp(`^${BASE_URL}p/([a-z]{2,3})/?$`).exec(location.pathname);
   const country = manifest.countries.find((c) => c.id === m?.[1]?.toUpperCase());
   if (!country?.preview) return null;
-  return h('img', { class: 'fatal-preview', attrs: { src: `${DATA_URL}previews/poster/${country.id}.png`, alt: `Poster of ${country.name}'s population distribution`, width: 540, height: 675 } });
+  return h('img', { class: 'fatal-preview', attrs: { src: `${DATA_URL}previews/poster/${country.id}.jpg`, alt: `Poster of ${country.name}'s population distribution`, width: 540, height: 675 } });
 }
 
 async function boot(): Promise<void> {
