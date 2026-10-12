@@ -26,6 +26,9 @@ export default defineConfig(
       'no-implied-eval': 'error',
       'no-new-func': 'error',
       'no-script-url': 'error',
+      // Typed-array reads in bounds-checked numeric loops are typed `number | undefined` under
+      // noUncheckedIndexedAccess; `!` there is deliberate.
+      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
 );
