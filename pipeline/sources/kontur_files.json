@@ -1,0 +1,1502 @@
+[
+ {
+  "iso2": "AD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AD_20231101.gpkg.gz",
+  "bytes": 28915,
+  "etag": "04ad8c06b0808721d3dd33cf1591a017"
+ },
+ {
+  "iso2": "AE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AE_20231101.gpkg.gz",
+  "bytes": 1797126,
+  "etag": "0c70c6a85d1c4af6b7ac45bff5ce346f"
+ },
+ {
+  "iso2": "AF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AF_20231101.gpkg.gz",
+  "bytes": 10850577,
+  "etag": "de27bd1e28e88df965ea82f9cca71e09-2"
+ },
+ {
+  "iso2": "AG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AG_20231101.gpkg.gz",
+  "bytes": 43212,
+  "etag": "c36a6464c078dc7d23dee980f8724834"
+ },
+ {
+  "iso2": "AI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AI_20231101.gpkg.gz",
+  "bytes": 14061,
+  "etag": "1367328d13928cda1186762bdd4c6f13"
+ },
+ {
+  "iso2": "AL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AL_20231101.gpkg.gz",
+  "bytes": 1572974,
+  "etag": "636fb2f565625e5b55cc08e7b7505461"
+ },
+ {
+  "iso2": "AM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AM_20231101.gpkg.gz",
+  "bytes": 945000,
+  "etag": "914441e0954eb4635093e7c6db5872a1"
+ },
+ {
+  "iso2": "AO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AO_20231101.gpkg.gz",
+  "bytes": 17066981,
+  "etag": "16e7362b09789e7807b9351cf74e6de0-3"
+ },
+ {
+  "iso2": "AQ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AQ_20231101.gpkg.gz",
+  "bytes": 2626,
+  "etag": "fea34f4fa40b5ab237cae310dfe81112"
+ },
+ {
+  "iso2": "AR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AR_20231101.gpkg.gz",
+  "bytes": 30153004,
+  "etag": "a181751fed194b0a08b6062c63436f01-4"
+ },
+ {
+  "iso2": "AS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AS_20231101.gpkg.gz",
+  "bytes": 18701,
+  "etag": "98fad2ccd5f9764bc066c4f66b8e9e68"
+ },
+ {
+  "iso2": "AT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AT_20231101.gpkg.gz",
+  "bytes": 5960970,
+  "etag": "3913ffdd90b12667a54e30e6003b5dcb"
+ },
+ {
+  "iso2": "AU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AU_20231101.gpkg.gz",
+  "bytes": 41448521,
+  "etag": "9c5eb0169e0e24c4fd02621a2f309350-5"
+ },
+ {
+  "iso2": "AW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AW_20231101.gpkg.gz",
+  "bytes": 21741,
+  "etag": "acc22dfdead8ae475cc0f7471b831aa3"
+ },
+ {
+  "iso2": "AX",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AX_20231101.gpkg.gz",
+  "bytes": 198127,
+  "etag": "841266c022b922297d3a874915dc20e5"
+ },
+ {
+  "iso2": "AZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_AZ_20231101.gpkg.gz",
+  "bytes": 2576257,
+  "etag": "7e8156ab0205bc79d48c716ba5531634"
+ },
+ {
+  "iso2": "BA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BA_20231101.gpkg.gz",
+  "bytes": 2878210,
+  "etag": "55f8eb71697ee1c9bec4e212c138a1bb"
+ },
+ {
+  "iso2": "BB",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BB_20231101.gpkg.gz",
+  "bytes": 49077,
+  "etag": "3d6f40fa0608cba72e9d399eb49ea56e"
+ },
+ {
+  "iso2": "BD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BD_20231101.gpkg.gz",
+  "bytes": 9661444,
+  "etag": "c0b0e6ae6e56b241815f91cf1e631efd-2"
+ },
+ {
+  "iso2": "BE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BE_20231101.gpkg.gz",
+  "bytes": 2787349,
+  "etag": "649d40d526b84d09d0191895ef5a232a"
+ },
+ {
+  "iso2": "BF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BF_20231101.gpkg.gz",
+  "bytes": 11005628,
+  "etag": "79dec312aa62b48e0c81d277159c96a5-2"
+ },
+ {
+  "iso2": "BG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BG_20231101.gpkg.gz",
+  "bytes": 4075647,
+  "etag": "a316ccc0013a2ab9b8ececae4a828f7c"
+ },
+ {
+  "iso2": "BH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BH_20231101.gpkg.gz",
+  "bytes": 84055,
+  "etag": "12d026e9ec73d8acceab74b3e846ac64"
+ },
+ {
+  "iso2": "BI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BI_20231101.gpkg.gz",
+  "bytes": 1826051,
+  "etag": "74fa16b0a49043059863c4b50836c4de"
+ },
+ {
+  "iso2": "BJ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BJ_20231101.gpkg.gz",
+  "bytes": 5754733,
+  "etag": "a1de8b4476e8e35458eab582a8812f9e"
+ },
+ {
+  "iso2": "BL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BL_20231101.gpkg.gz",
+  "bytes": 6479,
+  "etag": "f81741ed5b1c12cf937830e69de39527"
+ },
+ {
+  "iso2": "BM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BM_20231101.gpkg.gz",
+  "bytes": 15683,
+  "etag": "cef125ccab6980deb6b8c07a98c26290"
+ },
+ {
+  "iso2": "BN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BN_20231101.gpkg.gz",
+  "bytes": 156912,
+  "etag": "ce486e9036403e0f39e7c65a56489fa4"
+ },
+ {
+  "iso2": "BO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BO_20231101.gpkg.gz",
+  "bytes": 11593787,
+  "etag": "9e5608f62d9136a25b8e08a78ec7ae5f-2"
+ },
+ {
+  "iso2": "BQ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BQ_20231101.gpkg.gz",
+  "bytes": 2627,
+  "etag": "56cfd05a3f0dd985cd7fc28b77e31ec0"
+ },
+ {
+  "iso2": "BR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BR_20231101.gpkg.gz",
+  "bytes": 149122994,
+  "etag": "2a5c6e7a65669e0a663ab53e9f520014-18"
+ },
+ {
+  "iso2": "BS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BS_20231101.gpkg.gz",
+  "bytes": 261305,
+  "etag": "6a2c7f6993f5b74ac9d8272906909ee8"
+ },
+ {
+  "iso2": "BT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BT_20231101.gpkg.gz",
+  "bytes": 675738,
+  "etag": "02fe501f84b123b5b7b79b41191eed62"
+ },
+ {
+  "iso2": "BV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BV_20231101.gpkg.gz",
+  "bytes": 2627,
+  "etag": "f49221dffdafd0d399efb0a3c2df04f7"
+ },
+ {
+  "iso2": "BW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BW_20231101.gpkg.gz",
+  "bytes": 5684480,
+  "etag": "5c9f756a6d5d67a14ef1a00100bb301f"
+ },
+ {
+  "iso2": "BY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BY_20231101.gpkg.gz",
+  "bytes": 8621893,
+  "etag": "151e6ea2c8ae8540b361c5dabeed3f6a-2"
+ },
+ {
+  "iso2": "BZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_BZ_20231101.gpkg.gz",
+  "bytes": 426091,
+  "etag": "bd0e59f7bda71cd585c6b8f5670741fc"
+ },
+ {
+  "iso2": "CA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CA_20231101.gpkg.gz",
+  "bytes": 45830510,
+  "etag": "af8dba263adcad85ae1db48a57466cd2-6"
+ },
+ {
+  "iso2": "CC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CC_20231101.gpkg.gz",
+  "bytes": 5834,
+  "etag": "fdf773ccffaf9b581e765afff13ed028"
+ },
+ {
+  "iso2": "CD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CD_20231101.gpkg.gz",
+  "bytes": 25112875,
+  "etag": "0494e8c31271be091ae7abbdd202a2b3-3"
+ },
+ {
+  "iso2": "CF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CF_20231101.gpkg.gz",
+  "bytes": 2945375,
+  "etag": "b6b63f353a373e7d228f740c84ccc10a"
+ },
+ {
+  "iso2": "CG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CG_20231101.gpkg.gz",
+  "bytes": 1142920,
+  "etag": "34300c745ab5213588268c941afcadd8"
+ },
+ {
+  "iso2": "CH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CH_20231101.gpkg.gz",
+  "bytes": 2874202,
+  "etag": "c56c9caaf9b799cb221d4f1fc5e55b02"
+ },
+ {
+  "iso2": "CI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CI_20231101.gpkg.gz",
+  "bytes": 11706001,
+  "etag": "6bc63e6031d54cbd816026f2264353d7-2"
+ },
+ {
+  "iso2": "CK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CK_20231101.gpkg.gz",
+  "bytes": 20229,
+  "etag": "82ec77ecff8aa19ff8cd2180afc632f3"
+ },
+ {
+  "iso2": "CL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CL_20231101.gpkg.gz",
+  "bytes": 10693383,
+  "etag": "e0a0aa9f9f48499d9ce419ede70eb201-2"
+ },
+ {
+  "iso2": "CM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CM_20231101.gpkg.gz",
+  "bytes": 8529836,
+  "etag": "0dcb021e5810668186eafa0198f4878c-2"
+ },
+ {
+  "iso2": "CN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CN_20231101.gpkg.gz",
+  "bytes": 225599493,
+  "etag": "95b326e20323a73ca72aca6ab2c08dc0-27"
+ },
+ {
+  "iso2": "CO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CO_20231101.gpkg.gz",
+  "bytes": 24190399,
+  "etag": "112ed0f36d040d4da3ecea07f70800ee-3"
+ },
+ {
+  "iso2": "CR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CR_20231101.gpkg.gz",
+  "bytes": 2460622,
+  "etag": "39b2560c5ec972de4ab41939e39ad1c6"
+ },
+ {
+  "iso2": "CU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CU_20231101.gpkg.gz",
+  "bytes": 4467711,
+  "etag": "b942853540f89f00d54dc549359ceaf8"
+ },
+ {
+  "iso2": "CV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CV_20231101.gpkg.gz",
+  "bytes": 164783,
+  "etag": "7f8df64dabaaf5b256435ebcc359afea"
+ },
+ {
+  "iso2": "CW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CW_20231101.gpkg.gz",
+  "bytes": 37206,
+  "etag": "42a9ddc79c38d18cc2fcf0ecac4b1ae2"
+ },
+ {
+  "iso2": "CX",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CX_20231101.gpkg.gz",
+  "bytes": 6761,
+  "etag": "247982d374afb289b2e40aa2832af747"
+ },
+ {
+  "iso2": "CY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CY_20231101.gpkg.gz",
+  "bytes": 576092,
+  "etag": "274ff2aabeb52ee0c64bc9cd1def0a61"
+ },
+ {
+  "iso2": "CZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_CZ_20231101.gpkg.gz",
+  "bytes": 5674306,
+  "etag": "98640478d2b31dd0a21d8cdeaaccf17b"
+ },
+ {
+  "iso2": "DE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DE_20231101.gpkg.gz",
+  "bytes": 25852962,
+  "etag": "a684576915c6975e206ba81aee930b83-4"
+ },
+ {
+  "iso2": "DJ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DJ_20231101.gpkg.gz",
+  "bytes": 162001,
+  "etag": "5245c35a461cbd7874bec5581fb5b406"
+ },
+ {
+  "iso2": "DK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DK_20231101.gpkg.gz",
+  "bytes": 4435065,
+  "etag": "521633bf0ca6cf0dc20e3a2102332a0d"
+ },
+ {
+  "iso2": "DM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DM_20231101.gpkg.gz",
+  "bytes": 59948,
+  "etag": "45612162d08c4038565522a798f4e8f0"
+ },
+ {
+  "iso2": "DO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DO_20231101.gpkg.gz",
+  "bytes": 2866763,
+  "etag": "69832945e4156ac831c807ea54630d3c"
+ },
+ {
+  "iso2": "DZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_DZ_20231101.gpkg.gz",
+  "bytes": 14746797,
+  "etag": "e56202060babf5065aa48192180d78ed-2"
+ },
+ {
+  "iso2": "EC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_EC_20231101.gpkg.gz",
+  "bytes": 8054768,
+  "etag": "6be57e7ad6e2d8eb408ad1610881d5d6"
+ },
+ {
+  "iso2": "EE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_EE_20231101.gpkg.gz",
+  "bytes": 3053086,
+  "etag": "d2fe088c6834aaa88ae9da5a39553425"
+ },
+ {
+  "iso2": "EG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_EG_20231101.gpkg.gz",
+  "bytes": 6761524,
+  "etag": "87946f10f36690057466a1d74b0decac"
+ },
+ {
+  "iso2": "EH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_EH_20231101.gpkg.gz",
+  "bytes": 321236,
+  "etag": "437908a081ea0f98617072af84b3d083"
+ },
+ {
+  "iso2": "ER",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ER_20231101.gpkg.gz",
+  "bytes": 2099839,
+  "etag": "7d21b01b05df2efcfe472057e38df3f5"
+ },
+ {
+  "iso2": "ES",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ES_20231101.gpkg.gz",
+  "bytes": 21966973,
+  "etag": "36a704439cf0aacec9efc627fa9687e2-3"
+ },
+ {
+  "iso2": "ET",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ET_20231101.gpkg.gz",
+  "bytes": 30952297,
+  "etag": "ac54b8b5d03b5ded5104a770f5fade87-4"
+ },
+ {
+  "iso2": "FI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FI_20231101.gpkg.gz",
+  "bytes": 18366512,
+  "etag": "1fe149cbb40a229a16c53e2d62b13d79-3"
+ },
+ {
+  "iso2": "FJ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FJ_20231101.gpkg.gz",
+  "bytes": 829282,
+  "etag": "5498915dec5d0da4f0a8975e749649c2"
+ },
+ {
+  "iso2": "FK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FK_20231101.gpkg.gz",
+  "bytes": 113448,
+  "etag": "1468aeda9bf4263533499e00cba50faf"
+ },
+ {
+  "iso2": "FM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FM_20231101.gpkg.gz",
+  "bytes": 59931,
+  "etag": "e2b77b2c2784eadc7b886f3246a4b266"
+ },
+ {
+  "iso2": "FO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FO_20231101.gpkg.gz",
+  "bytes": 90545,
+  "etag": "612df6d6fd69b2554f59e4b7422bfff9"
+ },
+ {
+  "iso2": "FR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_FR_20231101.gpkg.gz",
+  "bytes": 42273535,
+  "etag": "646157723a284261cb8947fd4ff70e7c-6"
+ },
+ {
+  "iso2": "GA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GA_20231101.gpkg.gz",
+  "bytes": 750836,
+  "etag": "a71fe3f118e7a387c952dc2932aa1498"
+ },
+ {
+  "iso2": "GB",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GB_20231101.gpkg.gz",
+  "bytes": 16315976,
+  "etag": "1a49154c30ec6938ebb1c4aeec6ef1c8-2"
+ },
+ {
+  "iso2": "GD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GD_20231101.gpkg.gz",
+  "bytes": 38468,
+  "etag": "fe8608224893bd3ddc5b2dccf6deeac3"
+ },
+ {
+  "iso2": "GE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GE_20231101.gpkg.gz",
+  "bytes": 2129480,
+  "etag": "4f2c5d96c124148876ca7fca46bf5e99"
+ },
+ {
+  "iso2": "GF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GF_20231101.gpkg.gz",
+  "bytes": 179134,
+  "etag": "3b30ce2988090fd9a666e6f80ed73d34"
+ },
+ {
+  "iso2": "GG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GG_20231101.gpkg.gz",
+  "bytes": 14291,
+  "etag": "5fbc6e36c80c8f1ee9e0b0c33f17e9a9"
+ },
+ {
+  "iso2": "GH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GH_20231101.gpkg.gz",
+  "bytes": 10657803,
+  "etag": "dff334d455affef169f7847b455b302a-2"
+ },
+ {
+  "iso2": "GI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GI_20231101.gpkg.gz",
+  "bytes": 4316,
+  "etag": "451a0eed28387451d80ba1f58d4f4c0f"
+ },
+ {
+  "iso2": "GL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GL_20231101.gpkg.gz",
+  "bytes": 95426,
+  "etag": "5f525b3e5ed3f4abd3ccb7c4f7f63605"
+ },
+ {
+  "iso2": "GM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GM_20231101.gpkg.gz",
+  "bytes": 469277,
+  "etag": "a2d0781c8fe3a7f2a125ec43d57baaf5"
+ },
+ {
+  "iso2": "GN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GN_20231101.gpkg.gz",
+  "bytes": 7423851,
+  "etag": "fd673af9e39bcb870fe9c5964a42bb34"
+ },
+ {
+  "iso2": "GP",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GP_20231101.gpkg.gz",
+  "bytes": 152919,
+  "etag": "6fb3eb6215dcc39ee1245341867d670e"
+ },
+ {
+  "iso2": "GQ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GQ_20231101.gpkg.gz",
+  "bytes": 328127,
+  "etag": "7ef68110c583e5e449454324aad520a7"
+ },
+ {
+  "iso2": "GR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GR_20231101.gpkg.gz",
+  "bytes": 7479813,
+  "etag": "19f42dece65c4cfc686413670b24805f"
+ },
+ {
+  "iso2": "GS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GS_20231101.gpkg.gz",
+  "bytes": 5259,
+  "etag": "aae8608f42cae2d86efdfd98e2d8f676"
+ },
+ {
+  "iso2": "GT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GT_20231101.gpkg.gz",
+  "bytes": 5683724,
+  "etag": "6d968208a344b5e3ab7bd8abb38a8510"
+ },
+ {
+  "iso2": "GU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GU_20231101.gpkg.gz",
+  "bytes": 35340,
+  "etag": "1cd43b53c66c8218c725bde2e0dd36cf"
+ },
+ {
+  "iso2": "GW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GW_20231101.gpkg.gz",
+  "bytes": 1086795,
+  "etag": "5b98f1e91edf478ac9466de4f3b15c46"
+ },
+ {
+  "iso2": "GY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_GY_20231101.gpkg.gz",
+  "bytes": 498747,
+  "etag": "73436459ec791e561db950a81e3049c0"
+ },
+ {
+  "iso2": "HK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HK_20231101.gpkg.gz",
+  "bytes": 96428,
+  "etag": "5f10664636227397fb83e107489e6804"
+ },
+ {
+  "iso2": "HM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HM_20231101.gpkg.gz",
+  "bytes": 2946,
+  "etag": "4b76dc166e91e0e6e4371887c37b624c"
+ },
+ {
+  "iso2": "HN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HN_20231101.gpkg.gz",
+  "bytes": 4686471,
+  "etag": "0e0c708ed4dae8669e396ab3a515b4fe"
+ },
+ {
+  "iso2": "HR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HR_20231101.gpkg.gz",
+  "bytes": 3340477,
+  "etag": "b572b7eef8b20a6757a75261c7295653"
+ },
+ {
+  "iso2": "HT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HT_20231101.gpkg.gz",
+  "bytes": 2443319,
+  "etag": "6c025e29f38c5ac0c0b9190993ac8242"
+ },
+ {
+  "iso2": "HU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_HU_20231101.gpkg.gz",
+  "bytes": 4487351,
+  "etag": "391f1b90552dd83adc084ed5ac24cac2"
+ },
+ {
+  "iso2": "ID",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ID_20231101.gpkg.gz",
+  "bytes": 64327756,
+  "etag": "2ca6b69aa35ff3badf5b32e0c90a8b05-8"
+ },
+ {
+  "iso2": "IE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IE_20231101.gpkg.gz",
+  "bytes": 4850502,
+  "etag": "26ad0e04f8c1f6209877502c8f3d7f6f"
+ },
+ {
+  "iso2": "IL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IL_20231101.gpkg.gz",
+  "bytes": 856436,
+  "etag": "15d8f5ddf01a34ab6d074cc12c0509bf"
+ },
+ {
+  "iso2": "IM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IM_20231101.gpkg.gz",
+  "bytes": 44822,
+  "etag": "5b92ea1b6355bf6ee57cd23187309959"
+ },
+ {
+  "iso2": "IN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IN_20231101.gpkg.gz",
+  "bytes": 148122132,
+  "etag": "d343cdab830bd42f01247298606b029d-18"
+ },
+ {
+  "iso2": "IO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IO_20231101.gpkg.gz",
+  "bytes": 6566,
+  "etag": "d4a9b1b2cc0caaf3a2ed670d7107a625"
+ },
+ {
+  "iso2": "IQ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IQ_20231101.gpkg.gz",
+  "bytes": 8159047,
+  "etag": "53286c083dc4f5fce365dbc027a68f85"
+ },
+ {
+  "iso2": "IR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IR_20231101.gpkg.gz",
+  "bytes": 17300063,
+  "etag": "0fdaaac332cf41d067281dc71465e86e-3"
+ },
+ {
+  "iso2": "IS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IS_20231101.gpkg.gz",
+  "bytes": 1848012,
+  "etag": "93acfa7978f827066faf733c6b792d2c"
+ },
+ {
+  "iso2": "IT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_IT_20231101.gpkg.gz",
+  "bytes": 21057834,
+  "etag": "e2af61567c6f486471f347294dd6d779-3"
+ },
+ {
+  "iso2": "JE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_JE_20231101.gpkg.gz",
+  "bytes": 18067,
+  "etag": "5f310b255dd2e1749a8a51d3e385aa8c"
+ },
+ {
+  "iso2": "JM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_JM_20231101.gpkg.gz",
+  "bytes": 925990,
+  "etag": "b60fc25c931008b1471e476bf5e281ac"
+ },
+ {
+  "iso2": "JO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_JO_20231101.gpkg.gz",
+  "bytes": 1235054,
+  "etag": "05385fcc2012454d9f570592117231ff"
+ },
+ {
+  "iso2": "JP",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_JP_20231101.gpkg.gz",
+  "bytes": 16070678,
+  "etag": "b2aa9a0b05246735be6403d0a6bbf9de-2"
+ },
+ {
+  "iso2": "KE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KE_20231101.gpkg.gz",
+  "bytes": 16524159,
+  "etag": "9deb516d381f6f62866f1099e90a1600-2"
+ },
+ {
+  "iso2": "KG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KG_20231101.gpkg.gz",
+  "bytes": 4910528,
+  "etag": "eea18c79fdf632cdd36b35be7b93be3b"
+ },
+ {
+  "iso2": "KH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KH_20231101.gpkg.gz",
+  "bytes": 5605689,
+  "etag": "9c91a90cd3decf1ef4ae116e7520a80d"
+ },
+ {
+  "iso2": "KI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KI_20231101.gpkg.gz",
+  "bytes": 71879,
+  "etag": "ab652ce335c4b972e501c359efe61440"
+ },
+ {
+  "iso2": "KM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KM_20231101.gpkg.gz",
+  "bytes": 84140,
+  "etag": "aee4dfa01ea12a35556a0ea122d26b8f"
+ },
+ {
+  "iso2": "KN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KN_20231101.gpkg.gz",
+  "bytes": 28908,
+  "etag": "3387d3d4f6f8726a7b71756864f3920d"
+ },
+ {
+  "iso2": "KP",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KP_20231101.gpkg.gz",
+  "bytes": 3471637,
+  "etag": "468842c738b5bdd9017fbdbdb8e23e0d"
+ },
+ {
+  "iso2": "KR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KR_20231101.gpkg.gz",
+  "bytes": 5362668,
+  "etag": "20f836be6e87ac3344d68b4a9fb31d7a"
+ },
+ {
+  "iso2": "KW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KW_20231101.gpkg.gz",
+  "bytes": 720944,
+  "etag": "bab9594a92558c92eb44ac8d0a357430"
+ },
+ {
+  "iso2": "KY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KY_20231101.gpkg.gz",
+  "bytes": 30678,
+  "etag": "aca5ef7dfa595833eab51a6e59832210"
+ },
+ {
+  "iso2": "KZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_KZ_20231101.gpkg.gz",
+  "bytes": 14906587,
+  "etag": "7fdd384b4112acf338f6efa602d024eb-2"
+ },
+ {
+  "iso2": "LA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LA_20231101.gpkg.gz",
+  "bytes": 5143481,
+  "etag": "f011d5b97768222da5aa23c816356f89"
+ },
+ {
+  "iso2": "LB",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LB_20231101.gpkg.gz",
+  "bytes": 684987,
+  "etag": "ce098138b5cb16b9fbaea5ba50412460"
+ },
+ {
+  "iso2": "LC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LC_20231101.gpkg.gz",
+  "bytes": 55347,
+  "etag": "7a8d033ff64f9725dd33ec3428aec98c"
+ },
+ {
+  "iso2": "LI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LI_20231101.gpkg.gz",
+  "bytes": 17382,
+  "etag": "7884f7d86870f56fefe10ec5d5967b08"
+ },
+ {
+  "iso2": "LK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LK_20231101.gpkg.gz",
+  "bytes": 3213570,
+  "etag": "f617b2203a294c41367f036f37db9e7a"
+ },
+ {
+  "iso2": "LR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LR_20231101.gpkg.gz",
+  "bytes": 3291895,
+  "etag": "64b634f5be0898a02cacd17baa7c771b"
+ },
+ {
+  "iso2": "LS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LS_20231101.gpkg.gz",
+  "bytes": 1563571,
+  "etag": "a51a8eb409016e819013288a529ed97f"
+ },
+ {
+  "iso2": "LT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LT_20231101.gpkg.gz",
+  "bytes": 4511268,
+  "etag": "46a99c53cdb5529b8dbe674cea053c78"
+ },
+ {
+  "iso2": "LU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LU_20231101.gpkg.gz",
+  "bytes": 233713,
+  "etag": "801d1a1b3cf3f52e07ec35c09daa9866"
+ },
+ {
+  "iso2": "LV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LV_20231101.gpkg.gz",
+  "bytes": 4099734,
+  "etag": "2f71fd8d54f169d4b0e7dad94ed80054"
+ },
+ {
+  "iso2": "LY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_LY_20231101.gpkg.gz",
+  "bytes": 4437554,
+  "etag": "9a657865a46425981c0bcf9fce4df366"
+ },
+ {
+  "iso2": "MA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MA_20231101.gpkg.gz",
+  "bytes": 7963021,
+  "etag": "fcee8aa7b0a33d31ade7fcf40b3563f1"
+ },
+ {
+  "iso2": "MC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MC_20231101.gpkg.gz",
+  "bytes": 3508,
+  "etag": "35a1783576d525338a67a85dd8387ca5"
+ },
+ {
+  "iso2": "MD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MD_20231101.gpkg.gz",
+  "bytes": 1570689,
+  "etag": "deb38e7027abda46c501a930dc533f07"
+ },
+ {
+  "iso2": "ME",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ME_20231101.gpkg.gz",
+  "bytes": 710825,
+  "etag": "01417ad95353c766be7eb8f303660342"
+ },
+ {
+  "iso2": "MF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MF_20231101.gpkg.gz",
+  "bytes": 11215,
+  "etag": "cf90081e260a88fd565ad6974002e534"
+ },
+ {
+  "iso2": "MG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MG_20231101.gpkg.gz",
+  "bytes": 22530438,
+  "etag": "fc2813077f98a3ca1f15d686f442d11c-3"
+ },
+ {
+  "iso2": "MH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MH_20231101.gpkg.gz",
+  "bytes": 48491,
+  "etag": "7d47c82beff0ffa6bcf741e3ce8cfd1a"
+ },
+ {
+  "iso2": "MK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MK_20231101.gpkg.gz",
+  "bytes": 950459,
+  "etag": "234e89b90b3a55eb6e00b18405f0d4cf"
+ },
+ {
+  "iso2": "ML",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ML_20231101.gpkg.gz",
+  "bytes": 11943406,
+  "etag": "362cc2e3385ade987ca29c777aa3b2b6-2"
+ },
+ {
+  "iso2": "MM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MM_20231101.gpkg.gz",
+  "bytes": 15284876,
+  "etag": "056f81223a12398f25467ca77e3874d9-2"
+ },
+ {
+  "iso2": "MN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MN_20231101.gpkg.gz",
+  "bytes": 10588936,
+  "etag": "d7042e9f26b630c6a41e63dd6b97d18e-2"
+ },
+ {
+  "iso2": "MO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MO_20231101.gpkg.gz",
+  "bytes": 8305,
+  "etag": "95825760b11a1a31debdb6594f8c9400"
+ },
+ {
+  "iso2": "MP",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MP_20231101.gpkg.gz",
+  "bytes": 22544,
+  "etag": "621798314b5b034c5f14f0e8ed05d14f"
+ },
+ {
+  "iso2": "MQ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MQ_20231101.gpkg.gz",
+  "bytes": 114207,
+  "etag": "eea7308bf651ed3a9bef858cc35397f8"
+ },
+ {
+  "iso2": "MR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MR_20231101.gpkg.gz",
+  "bytes": 3467109,
+  "etag": "26b58e28f537e5d1c01f215deb413a84"
+ },
+ {
+  "iso2": "MS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MS_20231101.gpkg.gz",
+  "bytes": 9620,
+  "etag": "023064ff50908ff283f2d9e99d827fc9"
+ },
+ {
+  "iso2": "MT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MT_20231101.gpkg.gz",
+  "bytes": 32789,
+  "etag": "b0c702ab7e23113dc2cb38435b61843e"
+ },
+ {
+  "iso2": "MU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MU_20231101.gpkg.gz",
+  "bytes": 146355,
+  "etag": "b195381451af37b861ff2321b9e73db1"
+ },
+ {
+  "iso2": "MV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MV_20231101.gpkg.gz",
+  "bytes": 91811,
+  "etag": "cd174e63720077a80717f69196b8b99a"
+ },
+ {
+  "iso2": "MW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MW_20231101.gpkg.gz",
+  "bytes": 5337325,
+  "etag": "f719e5228d017f2d2552bd61c7bd8efb"
+ },
+ {
+  "iso2": "MX",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MX_20231101.gpkg.gz",
+  "bytes": 34683186,
+  "etag": "26d1e9ef7545aac12f068ff01dcc9b63-5"
+ },
+ {
+  "iso2": "MY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MY_20231101.gpkg.gz",
+  "bytes": 11146602,
+  "etag": "7050f4137210d76040468f798fd897db-2"
+ },
+ {
+  "iso2": "MZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_MZ_20231101.gpkg.gz",
+  "bytes": 21979192,
+  "etag": "3c60b5a354795a3176bf0fe4ffec66e8-3"
+ },
+ {
+  "iso2": "NA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NA_20231101.gpkg.gz",
+  "bytes": 5734050,
+  "etag": "891f6f2e7f26adbcadd2a9a29628ae34"
+ },
+ {
+  "iso2": "NC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NC_20231101.gpkg.gz",
+  "bytes": 317850,
+  "etag": "028013ea5518ebd6a787f97bc3aee3d9"
+ },
+ {
+  "iso2": "NE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NE_20231101.gpkg.gz",
+  "bytes": 9909204,
+  "etag": "e3bd3ac038aee553255bb38f0e2db8f9-2"
+ },
+ {
+  "iso2": "NF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NF_20231101.gpkg.gz",
+  "bytes": 6444,
+  "etag": "9acf9e4420459bbc20d2b9ef8129c582"
+ },
+ {
+  "iso2": "NG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NG_20231101.gpkg.gz",
+  "bytes": 48009849,
+  "etag": "2e0d058649646421a61fdd3d3a6cd04d-6"
+ },
+ {
+  "iso2": "NI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NI_20231101.gpkg.gz",
+  "bytes": 3703296,
+  "etag": "b7d226bfe8fef93ee4a4bb46ca1ff2a4"
+ },
+ {
+  "iso2": "NL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NL_20231101.gpkg.gz",
+  "bytes": 3485550,
+  "etag": "1843717bfec11fe549e44417b8029811"
+ },
+ {
+  "iso2": "NO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NO_20231101.gpkg.gz",
+  "bytes": 14018216,
+  "etag": "8a45bb7360c56947616bf35a54d03826-2"
+ },
+ {
+  "iso2": "NP",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NP_20231101.gpkg.gz",
+  "bytes": 7093477,
+  "etag": "22e28864314c62e4cee0c0bb51785a00"
+ },
+ {
+  "iso2": "NR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NR_20231101.gpkg.gz",
+  "bytes": 6205,
+  "etag": "9e48be343e757f1401749f71d94886a3"
+ },
+ {
+  "iso2": "NU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NU_20231101.gpkg.gz",
+  "bytes": 10130,
+  "etag": "4f4e3d583eb39001c31126aeeb5f969d"
+ },
+ {
+  "iso2": "NZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_NZ_20231101.gpkg.gz",
+  "bytes": 7224950,
+  "etag": "7c0a030082620403e648ab16c8a81f40"
+ },
+ {
+  "iso2": "OM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_OM_20231101.gpkg.gz",
+  "bytes": 2483900,
+  "etag": "21e39dc21f0d1ccbac8b744828154b9a"
+ },
+ {
+  "iso2": "PA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PA_20231101.gpkg.gz",
+  "bytes": 2403451,
+  "etag": "c995447a3f54d296b0006ae37577cf59"
+ },
+ {
+  "iso2": "PE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PE_20231101.gpkg.gz",
+  "bytes": 19138257,
+  "etag": "62d436bda9900d3ec84aa383200f68fa-3"
+ },
+ {
+  "iso2": "PF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PF_20231101.gpkg.gz",
+  "bytes": 171841,
+  "etag": "ec98d679002ab1d3cf0a6bcd5a180d57"
+ },
+ {
+  "iso2": "PG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PG_20231101.gpkg.gz",
+  "bytes": 3820608,
+  "etag": "ce877fa9da368283ffaf96fed298bdc8"
+ },
+ {
+  "iso2": "PH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PH_20231101.gpkg.gz",
+  "bytes": 20021839,
+  "etag": "0ed8c9007ecf8c61ea18ddd1afa59e2d-3"
+ },
+ {
+  "iso2": "PK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PK_20231101.gpkg.gz",
+  "bytes": 27263415,
+  "etag": "ed6682c15414f87d7e899e6af06276a6-4"
+ },
+ {
+  "iso2": "PL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PL_20231101.gpkg.gz",
+  "bytes": 22353606,
+  "etag": "d622b98c2bdd63493caae0812d5ae355-3"
+ },
+ {
+  "iso2": "PM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PM_20231101.gpkg.gz",
+  "bytes": 8599,
+  "etag": "ea2965927a3d11977baf8037288c4b6e"
+ },
+ {
+  "iso2": "PN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PN_20231101.gpkg.gz",
+  "bytes": 3273,
+  "etag": "7c476fb721ee4c9607c8ac2764679a6b"
+ },
+ {
+  "iso2": "PR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PR_20231101.gpkg.gz",
+  "bytes": 989420,
+  "etag": "27301687771761e4dc80ac7b374d53d3"
+ },
+ {
+  "iso2": "PS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PS_20231101.gpkg.gz",
+  "bytes": 407465,
+  "etag": "5f96cc5065fd9cc436d6c365bc9bb37a"
+ },
+ {
+  "iso2": "PT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PT_20231101.gpkg.gz",
+  "bytes": 6098882,
+  "etag": "0565807a6d5fb66c242a1c288a90d6ac"
+ },
+ {
+  "iso2": "PW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PW_20231101.gpkg.gz",
+  "bytes": 17557,
+  "etag": "a74373a36006c49179510485b07d05d7"
+ },
+ {
+  "iso2": "PY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_PY_20231101.gpkg.gz",
+  "bytes": 6771057,
+  "etag": "99097b5eefa1eb107bf9bbfe83ba60e8"
+ },
+ {
+  "iso2": "QA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_QA_20231101.gpkg.gz",
+  "bytes": 573461,
+  "etag": "fc921dfe1d3aa9d1b52737e714e82428"
+ },
+ {
+  "iso2": "RE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_RE_20231101.gpkg.gz",
+  "bytes": 138576,
+  "etag": "ce2d24281fdf6e0328cc6ccea36a75ff"
+ },
+ {
+  "iso2": "RO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_RO_20231101.gpkg.gz",
+  "bytes": 10083390,
+  "etag": "4c18703155e45d363f1f0983b556762f-2"
+ },
+ {
+  "iso2": "RS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_RS_20231101.gpkg.gz",
+  "bytes": 4181561,
+  "etag": "7c0d46c402b101b77c354e23392e9926"
+ },
+ {
+  "iso2": "RU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_RU_20231101.gpkg.gz",
+  "bytes": 72782932,
+  "etag": "0f7d8517181b458a88a993f9c76b153b-9"
+ },
+ {
+  "iso2": "RW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_RW_20231101.gpkg.gz",
+  "bytes": 1663647,
+  "etag": "52ddce38b68fdbded0ac778a4b9b4c99"
+ },
+ {
+  "iso2": "SA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SA_20231101.gpkg.gz",
+  "bytes": 16777824,
+  "etag": "09c3382b3980f15dd63e5c52ca400e61-3"
+ },
+ {
+  "iso2": "SB",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SB_20231101.gpkg.gz",
+  "bytes": 534098,
+  "etag": "58002535170c2dbd62f3e2ebad180992"
+ },
+ {
+  "iso2": "SC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SC_20231101.gpkg.gz",
+  "bytes": 39806,
+  "etag": "01768362a4a163a4da268530ee5504a3"
+ },
+ {
+  "iso2": "SD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SD_20231101.gpkg.gz",
+  "bytes": 19137295,
+  "etag": "135a51d56b132ccf3b5e05d8543b14f4-3"
+ },
+ {
+  "iso2": "SE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SE_20231101.gpkg.gz",
+  "bytes": 20910226,
+  "etag": "7c2fa5e9562b3fd0e5cfea3ba436769b-3"
+ },
+ {
+  "iso2": "SG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SG_20231101.gpkg.gz",
+  "bytes": 90717,
+  "etag": "ae48c726b8cbd03368d38b1f70caa821"
+ },
+ {
+  "iso2": "SH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SH_20231101.gpkg.gz",
+  "bytes": 15099,
+  "etag": "d0aaf22ca5f96dc39d1d939acb83b7b2"
+ },
+ {
+  "iso2": "SI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SI_20231101.gpkg.gz",
+  "bytes": 1495734,
+  "etag": "f960ef1b034cda5bef829abcf74a0a4e"
+ },
+ {
+  "iso2": "SJ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SJ_20231101.gpkg.gz",
+  "bytes": 30773,
+  "etag": "15377b37734e4e37a1b96f78a4dcad5b"
+ },
+ {
+  "iso2": "SK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SK_20231101.gpkg.gz",
+  "bytes": 2796275,
+  "etag": "4b56699c9f6563a7f4cf78736d08572a"
+ },
+ {
+  "iso2": "SL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SL_20231101.gpkg.gz",
+  "bytes": 3518909,
+  "etag": "1ffb6ee7b3d98f40fefa1a9d55bdf471"
+ },
+ {
+  "iso2": "SM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SM_20231101.gpkg.gz",
+  "bytes": 10188,
+  "etag": "4466b39da489dc651b919de8ce3e9da8"
+ },
+ {
+  "iso2": "SN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SN_20231101.gpkg.gz",
+  "bytes": 5066449,
+  "etag": "5eb8f02fdaef5243e498cd4db6b0e180"
+ },
+ {
+  "iso2": "SO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SO_20231101.gpkg.gz",
+  "bytes": 8190242,
+  "etag": "90808b58108dbc27608f1cc04e3e6bde"
+ },
+ {
+  "iso2": "SR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SR_20231101.gpkg.gz",
+  "bytes": 466810,
+  "etag": "c27843d3255ec3536f008733e4ba61c3"
+ },
+ {
+  "iso2": "SS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SS_20231101.gpkg.gz",
+  "bytes": 5280593,
+  "etag": "b2aebf359fbcf3b1ae677f5fdf40420a"
+ },
+ {
+  "iso2": "ST",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ST_20231101.gpkg.gz",
+  "bytes": 46147,
+  "etag": "e4c600bea012521c18d9208d331c0288"
+ },
+ {
+  "iso2": "SV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SV_20231101.gpkg.gz",
+  "bytes": 1504479,
+  "etag": "c5bbd362b5cdda8964d3c4c7d3f96b01"
+ },
+ {
+  "iso2": "SX",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SX_20231101.gpkg.gz",
+  "bytes": 9347,
+  "etag": "6bd77436ce7e35350172fabfdf5d77d8"
+ },
+ {
+  "iso2": "SY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SY_20231101.gpkg.gz",
+  "bytes": 5263151,
+  "etag": "4454e3182d8f9d1ecaffd40104ad914a"
+ },
+ {
+  "iso2": "SZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_SZ_20231101.gpkg.gz",
+  "bytes": 1068029,
+  "etag": "67a4329d9c96c13243f39d56d37ad988"
+ },
+ {
+  "iso2": "TC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TC_20231101.gpkg.gz",
+  "bytes": 34031,
+  "etag": "e984aaaaa9a3e82e6936159d16a776dd"
+ },
+ {
+  "iso2": "TD",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TD_20231101.gpkg.gz",
+  "bytes": 8111394,
+  "etag": "1fb6890797cdb22d8b0bec75213b70f7"
+ },
+ {
+  "iso2": "TF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TF_20231101.gpkg.gz",
+  "bytes": 11768,
+  "etag": "50bb5853873438542d000e2ea42b9b28"
+ },
+ {
+  "iso2": "TG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TG_20231101.gpkg.gz",
+  "bytes": 3454648,
+  "etag": "3a89c95b5e9b17a1445227e95b01a59c"
+ },
+ {
+  "iso2": "TH",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TH_20231101.gpkg.gz",
+  "bytes": 27992740,
+  "etag": "6085f2dab21ca65c7cae67e855e6026f-4"
+ },
+ {
+  "iso2": "TJ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TJ_20231101.gpkg.gz",
+  "bytes": 2960636,
+  "etag": "fd91bcf2b04bfd93e6f5fba87619177a"
+ },
+ {
+  "iso2": "TK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TK_20231101.gpkg.gz",
+  "bytes": 4360,
+  "etag": "103f0b4ed47587bccd4125970449477a"
+ },
+ {
+  "iso2": "TL",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TL_20231101.gpkg.gz",
+  "bytes": 781613,
+  "etag": "75760e82a71fe3b2110e8c28d8b0d1e1"
+ },
+ {
+  "iso2": "TM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TM_20231101.gpkg.gz",
+  "bytes": 2582872,
+  "etag": "1ff970976d8352c38e7927f3b9a81723"
+ },
+ {
+  "iso2": "TN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TN_20231101.gpkg.gz",
+  "bytes": 5583612,
+  "etag": "dbc84584302fb3642e3b47745ea5163d"
+ },
+ {
+  "iso2": "TO",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TO_20231101.gpkg.gz",
+  "bytes": 49569,
+  "etag": "068c4e4d64c30f30ba51092846c3340f"
+ },
+ {
+  "iso2": "TR",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TR_20231101.gpkg.gz",
+  "bytes": 33559312,
+  "etag": "48b92068dbe60e700d02fde04c4f0cd6-5"
+ },
+ {
+  "iso2": "TT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TT_20231101.gpkg.gz",
+  "bytes": 334548,
+  "etag": "c2c7bdbc3cb32806a7fa5ab0460cee3c"
+ },
+ {
+  "iso2": "TV",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TV_20231101.gpkg.gz",
+  "bytes": 11199,
+  "etag": "0e5e061171d382596384ba8b16f55409"
+ },
+ {
+  "iso2": "TW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TW_20231101.gpkg.gz",
+  "bytes": 1599396,
+  "etag": "3f34897fc01c6b80bb1823cb30ced5c1"
+ },
+ {
+  "iso2": "TZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_TZ_20231101.gpkg.gz",
+  "bytes": 36688425,
+  "etag": "b6026013245b78b397bf331d1d6d994f-5"
+ },
+ {
+  "iso2": "UA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_UA_20231101.gpkg.gz",
+  "bytes": 22232723,
+  "etag": "f13dc952a1a71031d4d8060124e668d7-3"
+ },
+ {
+  "iso2": "UG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_UG_20231101.gpkg.gz",
+  "bytes": 12735627,
+  "etag": "ecb2208277579cabbddb77e816cbcd58-2"
+ },
+ {
+  "iso2": "UM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_UM_20231101.gpkg.gz",
+  "bytes": 6318,
+  "etag": "0d03cfa1ad8e0bcb89ef26fa57fcfa0b"
+ },
+ {
+  "iso2": "US",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_US_20231101.gpkg.gz",
+  "bytes": 294350200,
+  "etag": "01fa06d5f720654227598f578e09a314-36"
+ },
+ {
+  "iso2": "UY",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_UY_20231101.gpkg.gz",
+  "bytes": 3757984,
+  "etag": "e0332bfcf7f8686f30c54103a5ee050e"
+ },
+ {
+  "iso2": "UZ",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_UZ_20231101.gpkg.gz",
+  "bytes": 7659896,
+  "etag": "43fa51f713e94bce2222b346ed7b73d1"
+ },
+ {
+  "iso2": "VA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VA_20231101.gpkg.gz",
+  "bytes": 3034,
+  "etag": "64ecc37134b41f5f7e3d90b72e92e64f"
+ },
+ {
+  "iso2": "VC",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VC_20231101.gpkg.gz",
+  "bytes": 38563,
+  "etag": "6ce2c5d2ade1af625875de7f565ff898"
+ },
+ {
+  "iso2": "VE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VE_20231101.gpkg.gz",
+  "bytes": 14362232,
+  "etag": "4a2297699bcddf91c51e8905fb37ba22-2"
+ },
+ {
+  "iso2": "VG",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VG_20231101.gpkg.gz",
+  "bytes": 25053,
+  "etag": "723a3525274cd6f49a9a7d17ade76da9"
+ },
+ {
+  "iso2": "VI",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VI_20231101.gpkg.gz",
+  "bytes": 50530,
+  "etag": "88170b7c76cad55d9e9558b87f580a10"
+ },
+ {
+  "iso2": "VN",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VN_20231101.gpkg.gz",
+  "bytes": 16091424,
+  "etag": "965af59e45f8322f4078b94921a369ce-2"
+ },
+ {
+  "iso2": "VU",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_VU_20231101.gpkg.gz",
+  "bytes": 380075,
+  "etag": "f244a612294bac73248f1fdc41e35b9c"
+ },
+ {
+  "iso2": "WF",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_WF_20231101.gpkg.gz",
+  "bytes": 18578,
+  "etag": "da545f27dbc914bdb7355a7f8ea71951"
+ },
+ {
+  "iso2": "WS",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_WS_20231101.gpkg.gz",
+  "bytes": 116547,
+  "etag": "72bb552504cfea815ac80beb3286a43d"
+ },
+ {
+  "iso2": "XK",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_XK_20231101.gpkg.gz",
+  "bytes": 678826,
+  "etag": "fb63a63863c1245321106253845789ec"
+ },
+ {
+  "iso2": "YE",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_YE_20231101.gpkg.gz",
+  "bytes": 5671955,
+  "etag": "826971e9797b52bb2989b732ba24b8b7"
+ },
+ {
+  "iso2": "YT",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_YT_20231101.gpkg.gz",
+  "bytes": 37002,
+  "etag": "f3c6801f7f707f1f2bcd520300dc4fe1"
+ },
+ {
+  "iso2": "ZA",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ZA_20231101.gpkg.gz",
+  "bytes": 38969474,
+  "etag": "00a913af99607ea89227044cc37c48ac-5"
+ },
+ {
+  "iso2": "ZM",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ZM_20231101.gpkg.gz",
+  "bytes": 18125588,
+  "etag": "5e30450a173dc1765642187ce4a223d2-3"
+ },
+ {
+  "iso2": "ZW",
+  "url": "https://geodata-eu-central-1-kontur-public.s3.amazonaws.com/kontur_datasets/kontur_population_ZW_20231101.gpkg.gz",
+  "bytes": 16975528,
+  "etag": "f1839d26f59138c8a6a54a58232ae02f-3"
+ }
+]

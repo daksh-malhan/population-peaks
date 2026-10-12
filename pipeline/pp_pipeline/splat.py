@@ -19,19 +19,26 @@ SHARD_ZOOM = 3
 SHARD_PX = m.TILE_SIZE << (MAX_ZOOM - SHARD_ZOOM)
 SHARDS = 1 << SHARD_ZOOM
 WORLD_PX = m.world_px(MAX_ZOOM)
-RECORD = np.dtype([("x", "<f8"), ("y", "<f8"), ("s", "<f4"), ("pop", "<f4")])
+RECORD = np.dtype([("x", "<f8"), ("y", "<f8"), ("s", "<f4"), ("pop", "<f4"), ("cell", "<u8")])
 _CHUNK = 1_000_000
 
 
-def cell_records(lat, lng, area_km2, pop) -> np.ndarray:
-    """Global z7 pixel position, footprint side (px) and population for each cell."""
+def cell_records(lat, lng, area_km2, pop, cell=None) -> np.ndarray:
+    """Global z7 pixel position, footprint side (px), population and H3 id for each cell."""
     lat = np.asarray(lat, dtype=np.float64)
     rec = np.empty(lat.shape[0], dtype=RECORD)
     rec["x"] = m.lng_to_x(lng, MAX_ZOOM)
     rec["y"] = m.lat_to_y(lat, MAX_ZOOM)
     rec["s"] = np.sqrt(np.asarray(area_km2, dtype=np.float64)) / m.pixel_size_km(lat, MAX_ZOOM)
     rec["pop"] = pop
+    rec["cell"] = 0 if cell is None else cell
     return rec
+
+
+def dedupe(rec: np.ndarray) -> np.ndarray:
+    """Keep one record per H3 cell. Kontur's per-country files repeat border cells."""
+    _, first = np.unique(rec["cell"], return_index=True)
+    return rec[np.sort(first)]
 
 
 def route_to_shards(rec: np.ndarray) -> dict[tuple[int, int], np.ndarray]:
