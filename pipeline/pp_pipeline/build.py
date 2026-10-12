@@ -1,7 +1,9 @@
 """Command line entry point: python -m pp_pipeline.build <command> ...
 
-  sources   refresh sources/kontur_files.json from HDX + S3 ETags
-  tiles     download Kontur files, build the density tile pyramid
+  sources       refresh sources/kontur_files.json from HDX + S3 ETags
+  tiles         download Kontur files, build the density tile pyramid
+  fetch-places  download Natural Earth (pinned blobs) and GeoNames
+  places        build place files, search index, border views and manifest.json
 """
 
 import argparse
@@ -15,7 +17,7 @@ from typing import Iterable
 
 import numpy as np
 
-from . import kontur, splat, tiles
+from . import kontur, places, sources, splat, tiles
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES = ROOT / "sources" / "kontur_files.json"
@@ -105,7 +107,31 @@ def main(argv: list[str] | None = None) -> int:
     t.add_argument("--work", type=Path, default=ROOT / "work")
     t.add_argument("--out", type=Path, required=True)
     t.add_argument("--keep-downloads", action="store_true")
+    f = sub.add_parser("fetch-places", help="download Natural Earth + GeoNames")
+    f.add_argument("--src", type=Path, default=ROOT / "work" / "src")
+    f.add_argument("--povs", default="all", help="comma-separated Natural Earth view codes, or 'all'")
+    p = sub.add_parser("places", help="build places, search index and manifest")
+    p.add_argument("--src", type=Path, default=ROOT / "work" / "src")
+    p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--version", default="2023-11-01-dev")
+    p.add_argument("--zone-tab", type=Path, default=Path("/usr/share/zoneinfo/zone.tab"))
     args = ap.parse_args(argv)
+
+    if args.cmd == "fetch-places":
+        wanted = None if args.povs == "all" else {v.strip().lower() for v in args.povs.split(",")}
+        hashes = sources.fetch_place_sources(args.src, wanted)
+        (args.src / "hashes.json").write_text(json.dumps(hashes, indent=1, sort_keys=True))
+        print(f"{len(hashes)} place sources ready in {args.src}")
+        return 0
+
+    if args.cmd == "places":
+        t0 = time.time()
+        summary = places.build_places(args.src, args.out, zone_tab=args.zone_tab)
+        hashes = json.loads((args.src / "hashes.json").read_text()) if (args.src / "hashes.json").exists() else {}
+        sources.build_manifest(args.out, args.version, summary.countries, summary.povs, summary.tz_pov, hashes)
+        print(f"places {summary.counts} | views {sum(len(v) for v in summary.povs.values())} outlines in "
+              f"{len(summary.povs)} views | {time.time() - t0:.0f}s")
+        return 0
 
     if args.cmd == "sources":
         entries = kontur.refresh_sources(args.version)

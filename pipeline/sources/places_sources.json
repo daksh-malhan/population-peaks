@@ -1,0 +1,146 @@
+{
+ "natural_earth": {
+  "version": "v5.1.2",
+  "commit": "f1890d9f152c896d250a77557a5751a93d494776",
+  "license": "Public domain",
+  "files": {
+   "ne_10m_admin_0_countries.geojson": {
+    "size": 13287234,
+    "git_sha": "5ebc66e25fc1af01edaebe9375c546655e04cf1e"
+   },
+   "ne_10m_admin_1_states_provinces.geojson": {
+    "size": 40726851,
+    "git_sha": "4a8438f98ac7dfec7dc1739b1eaf91398ad33f22"
+   },
+   "ne_10m_admin_0_countries_arg.geojson": {
+    "size": 13212970,
+    "git_sha": "8994af4ec8de1ce66358273aa2bd00574710cb08"
+   },
+   "ne_10m_admin_0_countries_bdg.geojson": {
+    "size": 13219102,
+    "git_sha": "193a2ad5007eff8365a9fca5a08f39e353b9f079"
+   },
+   "ne_10m_admin_0_countries_bra.geojson": {
+    "size": 13229096,
+    "git_sha": "72f54dd0233788b5cfcc7f724fec921843764967"
+   },
+   "ne_10m_admin_0_countries_chn.geojson": {
+    "size": 13205107,
+    "git_sha": "464406c710df1add2c6025b1c90b67c207b4002b"
+   },
+   "ne_10m_admin_0_countries_deu.geojson": {
+    "size": 13232694,
+    "git_sha": "0a1f1fdf02536e47e244d3b02f62a873f17b0f43"
+   },
+   "ne_10m_admin_0_countries_egy.geojson": {
+    "size": 13229953,
+    "git_sha": "63e1bbeeeb16956fed1ab67faaecbf703916426d"
+   },
+   "ne_10m_admin_0_countries_esp.geojson": {
+    "size": 13222717,
+    "git_sha": "1ede5fa6bf6ce3dacb5265a14ad92fa6aafd7876"
+   },
+   "ne_10m_admin_0_countries_fra.geojson": {
+    "size": 13225891,
+    "git_sha": "e80bb7d020f94ed2f4ae47dd9a23739bcf827b83"
+   },
+   "ne_10m_admin_0_countries_gbr.geojson": {
+    "size": 13236144,
+    "git_sha": "c16bf09354a7f924e502342615224d115cd3c3f1"
+   },
+   "ne_10m_admin_0_countries_grc.geojson": {
+    "size": 13222986,
+    "git_sha": "17c221e4fc8900bdb3b9e3ed772d51d67c25139c"
+   },
+   "ne_10m_admin_0_countries_idn.geojson": {
+    "size": 13202902,
+    "git_sha": "3882f2928d536f2004ca4b7ecd7ab763c8fefbcb"
+   },
+   "ne_10m_admin_0_countries_ind.geojson": {
+    "size": 13242091,
+    "git_sha": "852f3fdf92c01811d433e258b1475179184bd9b0"
+   },
+   "ne_10m_admin_0_countries_isr.geojson": {
+    "size": 13232084,
+    "git_sha": "a36bea67da2b8838822ee19101f514de200e3294"
+   },
+   "ne_10m_admin_0_countries_ita.geojson": {
+    "size": 13232383,
+    "git_sha": "405b08f5a88c6dc671d48b53fec65975ab6d22c8"
+   },
+   "ne_10m_admin_0_countries_jpn.geojson": {
+    "size": 13232502,
+    "git_sha": "a42f521e1f0f1465c6dddf6bf1730b562f7038ed"
+   },
+   "ne_10m_admin_0_countries_kor.geojson": {
+    "size": 13233357,
+    "git_sha": "c905d1d70f3a6090e61d3f089618a3002490103a"
+   },
+   "ne_10m_admin_0_countries_mar.geojson": {
+    "size": 13213047,
+    "git_sha": "7b378febec4e1f9bb5f02b630d4b0b9e1afe6226"
+   },
+   "ne_10m_admin_0_countries_nep.geojson": {
+    "size": 13242878,
+    "git_sha": "a5c66538bbb3a489b2793fcc1e49897a1a8dab55"
+   },
+   "ne_10m_admin_0_countries_nld.geojson": {
+    "size": 13225580,
+    "git_sha": "41aac13c65f0144e0e57624bf94cabf43d9a3c7b"
+   },
+   "ne_10m_admin_0_countries_pak.geojson": {
+    "size": 13222725,
+    "git_sha": "da5b3874974bc5ec879e9ff22351ca0307e089c0"
+   },
+   "ne_10m_admin_0_countries_pol.geojson": {
+    "size": 13225580,
+    "git_sha": "2a573c4989227d1e3031453c2072c70e187c7cb3"
+   },
+   "ne_10m_admin_0_countries_prt.geojson": {
+    "size": 13232291,
+    "git_sha": "aee051df1094bf1b19e96b5c9b5a13c9de299b35"
+   },
+   "ne_10m_admin_0_countries_pse.geojson": {
+    "size": 13247652,
+    "git_sha": "2939a90ad15949bd2c2c44a9cfce05583d5dc562"
+   },
+   "ne_10m_admin_0_countries_rus.geojson": {
+    "size": 13296060,
+    "git_sha": "e991ce04ebf0ffa0488aa6ca53d9ad48e0cf5981"
+   },
+   "ne_10m_admin_0_countries_sau.geojson": {
+    "size": 13220358,
+    "git_sha": "f29026ec93bb8d7f5145183715e4d2b6cc97c774"
+   },
+   "ne_10m_admin_0_countries_swe.geojson": {
+    "size": 13232383,
+    "git_sha": "1b18b490c689b9074f0d3e20ed90161e0fd6a89c"
+   },
+   "ne_10m_admin_0_countries_tur.geojson": {
+    "size": 13238246,
+    "git_sha": "5cc25138564916cf93806e392bfa3fffc3877056"
+   },
+   "ne_10m_admin_0_countries_twn.geojson": {
+    "size": 13224274,
+    "git_sha": "0c2b48fe8901af2cbb8afae3481d2cdeff4479eb"
+   },
+   "ne_10m_admin_0_countries_ukr.geojson": {
+    "size": 13223297,
+    "git_sha": "e0ae295012dd7bfb75e0fea1fce5aff554c1a065"
+   },
+   "ne_10m_admin_0_countries_usa.geojson": {
+    "size": 13245274,
+    "git_sha": "3ff54a8e3c27f4163631b6bc9b479eee5263f01b"
+   },
+   "ne_10m_admin_0_countries_vnm.geojson": {
+    "size": 13221654,
+    "git_sha": "cb9139cab88557f520669903efc77c16c9aced5b"
+   }
+  }
+ },
+ "geonames": {
+  "url": "https://download.geonames.org/export/dump/cities15000.zip",
+  "license": "CC BY 4.0",
+  "note": "Updated daily upstream; the sha256 of the copy used is recorded in each build's manifest."
+ }
+}
