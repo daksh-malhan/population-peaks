@@ -135,6 +135,10 @@
    "ne_10m_admin_0_countries_vnm.geojson": {
     "size": 13221654,
     "git_sha": "cb9139cab88557f520669903efc77c16c9aced5b"
+   },
+   "ne_10m_populated_places.geojson": {
+    "size": 19359003,
+    "git_sha": "376fb028c390a7a23213800ae4babaa6f534a0f3"
    }
   }
  },

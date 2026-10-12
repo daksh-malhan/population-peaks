@@ -67,6 +67,10 @@ export class SearchIndex {
     return this.entries.length;
   }
 
+  get items(): SearchItem[] {
+    return this.entries.map((e) => e.item);
+  }
+
   query(raw: string, limit = 8): SearchResult[] {
     const q = fold(raw.slice(0, 100));
     if (!q) return [];

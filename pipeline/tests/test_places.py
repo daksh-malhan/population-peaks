@@ -56,3 +56,32 @@ def test_tz_to_pov_covers_canonical_zones_and_legacy_aliases():
     assert tz["America/New_York"] == "USA"
     assert tz["Europe/Kyiv"] == "UKR" and tz["Europe/Kiev"] == "UKR"
     assert "Europe/Copenhagen" not in tz  # Denmark has no Natural Earth point of view
+
+
+def test_latin_aliases_keep_the_first_spelling_when_two_fold_together():
+    assert pl.latin_aliases("Munich", ["München", "Munchen", "Minga"], limit=3) == ["München", "Minga"]
+
+
+def test_city_names_lead_with_the_local_language_then_local_and_former_names():
+    munich = {"NAMEPAR": "Munchen", "NAME_DE": "München", "NAME_IT": "Monaco di Baviera", "NAME_EN": "Munich"}
+    assert pl.latin_aliases("Munich", pl.ordered_city_names(munich, "DE"), limit=4) == ["München", "Monaco di Baviera"]
+    milan = {"NAMEPAR": "Milano", "NAME_IT": "Milano", "NAME_HU": "Milánó", "NAME_DE": "Mailand"}
+    assert pl.latin_aliases("Milan", pl.ordered_city_names(milan, "IT"), limit=4) == ["Milano", "Mailand"]
+    cologne = {"NAMEPAR": "Koln", "NAME_DE": "Köln", "NAME_EN": "Cologne", "NAME_IT": "Colonia"}
+    assert pl.latin_aliases("Köln", pl.ordered_city_names(cologne, "DE"), limit=4)[0] == "Cologne"
+
+
+def test_ne_city_index_matches_by_geonames_id_or_by_name_and_place(tmp_path):
+    import json
+    feats = [
+        {"type": "Feature", "geometry": {"type": "Point", "coordinates": [16.37, 48.21]},
+         "properties": {"GEONAMESID": 2761369, "NAME": "Vienna", "NAMEPAR": "Wien", "NAME_DE": "Wien"}},
+        {"type": "Feature", "geometry": {"type": "Point", "coordinates": [14.42, 50.09]},
+         "properties": {"GEONAMESID": 4548393, "NAME": "Prague", "NAMEPAR": "Praha"}},
+    ]
+    (tmp_path / "ne_10m_populated_places.geojson").write_text(json.dumps({"features": feats}))
+    index = pl.ne_city_index(tmp_path)
+    assert index.lookup("2761369", "Vienna", 48.2, 16.37)["NAMEPAR"] == "Wien"
+    assert index.lookup("3067696", "Prague", 50.08, 14.43)["NAMEPAR"] == "Praha"
+    assert index.lookup("3067696", "Prague", 40.0, 14.43) is None   # same name, far away
+    assert index.lookup("1", "Elsewhere", 50.08, 14.43) is None

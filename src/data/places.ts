@@ -43,7 +43,7 @@ export interface CityLabel {
 export interface ResolvedPlace {
   ref: PlaceRef;
   name: string;
-  /** Human context line: "Country", "Province · Testland", "City · Testland". */
+  /** Human context line: "Country", "Province in Testland", "City in Testland". */
   context: string;
   countryName: string;
   tiny: boolean;
@@ -160,7 +160,7 @@ export async function resolvePlace(
   if (ref.kind === 'state') {
     const s = file.states.find((x) => x.id === ref.id);
     if (!s) throw new Error(`state ${ref.id} not found in ${ref.country}`);
-    return { ref, name: s.name, context: `${s.type} · ${file.name}`, countryName: file.name, ...regionFor(s) };
+    return { ref, name: s.name, context: `${s.type} in ${file.name}`, countryName: file.name, ...regionFor(s) };
   }
   const c = file.cities.find((x) => x[0] === ref.id);
   if (!c) throw new Error(`city ${ref.id} not found in ${ref.country}`);
@@ -171,7 +171,7 @@ export async function resolvePlace(
   return {
     ref,
     name,
-    context: `City · ${file.name}`,
+    context: `City in ${file.name}`,
     countryName: file.name,
     tiny: false,
     region: { bbox: [lng - dLng, lat - dLat, lng + dLng, lat + dLat], shape: { kind: 'circle', lng, lat, radiusKm } },

@@ -24,7 +24,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import type { MultiPolygon } from '../geo/geomCodec';
 import { type Laea, makeLaea } from '../geo/laea';
 import type { RegionGrid } from '../region/types';
-import { buildHeights, colorT } from './heightfield';
+import { buildHeights, colorT, glowFor } from './heightfield';
 import { type Palette, rampColor } from './palettes';
 
 /** World units across the longer side of the map. */
@@ -156,7 +156,7 @@ export class MapScene {
     const target = new WebGLRenderTarget(1, 1, { type: HalfFloatType, samples: 4 });
     this.composer = new EffectComposer(this.renderer, target);
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.bloom = new UnrealBloomPass(new Vector2(1, 1), 0.75, 0.5, 0.8);
+    this.bloom = new UnrealBloomPass(new Vector2(1, 1), 0.5, 0.42, 0.88);
     this.composer.addPass(this.bloom);
     this.composer.addPass(new OutputPass());
 
@@ -165,7 +165,7 @@ export class MapScene {
       fragmentShader: FRAG,
       uniforms: {
         uLightDir: { value: new Vector3(-0.45, 0.8, 0.4).normalize() },
-        uGlow: { value: 0.9 },
+        uGlow: { value: 0.45 },
         uMaxHeight: { value: BASE_HEIGHT },
       },
       alphaToCoverage: true,
@@ -288,6 +288,9 @@ export class MapScene {
       this.scene.add(this.mesh);
     }
     this.material.uniforms.uMaxHeight!.value = this.maxHeight;
+    const glow = glowFor(density, mask);
+    this.bloom.strength = glow;
+    this.material.uniforms.uGlow!.value = 0.9 * glow;
 
     for (const l of this.lines) {
       this.scene.remove(l);

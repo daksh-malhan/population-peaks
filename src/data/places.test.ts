@@ -46,7 +46,7 @@ describe('resolvePlace', () => {
     const { repo: r } = await repo();
     const p = await resolvePlace(r, { kind: 'state', id: 'ZZZ-1', country: 'ZZ' }, {});
     expect(p.name).toBe('North Testland');
-    expect(p.context).toBe('Province · Testland');
+    expect(p.context).toBe('Province in Testland');
   });
 
   it('resolves a city to a circle with the requested radius, clamped to 10–100 km', async () => {

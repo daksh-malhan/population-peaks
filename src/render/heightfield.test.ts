@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildHeights, colorT, LEGEND_CAP, regionPeak } from './heightfield';
+import { buildHeights, colorT, glowFor, LEGEND_CAP, regionPeak } from './heightfield';
 
 describe('density to colour', () => {
   it('saturates at the legend cap of 5,000 people/km²', () => {
@@ -34,5 +34,20 @@ describe('heights', () => {
 
   it('is flat (not NaN) when a place is empty', () => {
     expect(Array.from(buildHeights(new Float32Array(3), new Float32Array(3).fill(1), 0, 10))).toEqual([0, 0, 0]);
+  });
+});
+
+describe('glow', () => {
+  const mask = new Float32Array(1000).fill(1);
+  it('keeps full glow when only a few places are white-hot', () => {
+    const d = new Float32Array(1000).fill(50);
+    d.fill(9000, 0, 10); // 1% of the region
+    expect(glowFor(d, mask)).toBeCloseTo(0.5);
+  });
+
+  it('dims the glow when a broad area is white-hot', () => {
+    const d = new Float32Array(1000).fill(50);
+    d.fill(9000, 0, 200); // 20% of the region
+    expect(glowFor(d, mask)).toBeCloseTo(0.1);
   });
 });

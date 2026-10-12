@@ -34,3 +34,19 @@ export function buildHeights(density: Float32Array, mask: Float32Array, peak: nu
   for (let i = 0; i < density.length; i++) h[i] = scale * Math.min(1, density[i]! / peak) * smoothstep(0.25, 0.75, mask[i]!);
   return h;
 }
+
+/**
+ * Bloom strength for a region: full glow when only a few spikes are white-hot (a country
+ * with one big city), much less when a broad city core is (a 40 km circle around Vienna).
+ */
+export function glowFor(density: Float32Array, mask: Float32Array, full = 0.5): number {
+  let inside = 0;
+  let hot = 0;
+  for (let i = 0; i < density.length; i++) {
+    if (mask[i]! < 0.5) continue;
+    inside++;
+    if (colorT(density[i]!) >= 0.95) hot++;
+  }
+  const frac = inside ? hot / inside : 0;
+  return full * Math.min(1, Math.max(0.2, 0.02 / Math.max(frac, 1e-9)));
+}

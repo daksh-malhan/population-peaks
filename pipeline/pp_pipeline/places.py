@@ -67,10 +67,11 @@ def fold(s: str) -> str:
 
 
 def latin_aliases(name: str, alts: Iterable[str], limit: int) -> list[str]:
+    """Distinct Latin-script alternative names in the caller's priority order (first spelling wins)."""
     seen = {fold(name)}
-    out = []
+    out: list[str] = []
     for a in alts:
-        a = a.strip()
+        a = (a or "").strip()
         if len(a) < 3 or len(a) > 40 or not _LATIN.match(a) or (a.isupper() and len(a) <= 3):
             continue
         f = fold(a)
@@ -84,6 +85,7 @@ def latin_aliases(name: str, alts: Iterable[str], limit: int) -> list[str]:
 
 
 def _all_aliases(name: str, values: Iterable[str | None], limit: int = 40) -> list[str]:
+    """Every distinct alternative name (any script), splitting Natural Earth's '|' lists."""
     seen = {fold(name)}
     out = []
     for v in values:
@@ -94,6 +96,63 @@ def _all_aliases(name: str, values: Iterable[str | None], limit: int = 40) -> li
             seen.add(fold(a))
             out.append(a)
     return out[:limit]
+
+
+# Natural Earth translates city names into these languages; a city's own-language name leads.
+_LANG_OF = {
+    "DE": ["DE", "AT", "CH", "LI"], "FR": ["FR", "MC", "LU", "HT", "SN", "CI", "CM", "ML", "NE", "BF", "TD", "GA", "CG", "CD", "MG"],
+    "ES": ["ES", "MX", "AR", "CO", "PE", "VE", "CL", "EC", "GT", "CU", "BO", "DO", "HN", "PY", "SV", "NI", "CR", "PA", "UY", "GQ"],
+    "IT": ["IT", "SM", "VA"], "PT": ["PT", "BR", "AO", "MZ", "GW", "CV", "ST"], "NL": ["NL", "SR"], "PL": ["PL"], "SV": ["SE"],
+    "TR": ["TR"], "VI": ["VN"], "HU": ["HU"], "ID": ["ID"], "RU": ["RU", "BY"],
+}
+LANG_FIELD = {cc: f"NAME_{lang}" for lang, ccs in _LANG_OF.items() for cc in ccs}
+OTHER_NAME_FIELDS = ["NAME_DE", "NAME_ES", "NAME_FR", "NAME_IT", "NAME_PT", "NAME_NL", "NAME_PL", "NAME_SV", "NAME_TR",
+                     "NAME_VI", "NAME_HU", "NAME_ID"]
+
+
+def ordered_city_names(fields: dict, cc: str) -> list[str]:
+    """Own-language name, then Natural Earth's local/former names, English, then other languages."""
+    keys = [LANG_FIELD.get(cc), "NAMEPAR", "NAMEALT", "NAME_EN", *OTHER_NAME_FIELDS]
+    out = []
+    for key in keys:
+        if not key:
+            continue
+        for v in re.split(r"[|,]", fields.get(key) or ""):
+            if v.strip():
+                out.append(v.strip())
+    return out
+
+
+class NeCityIndex:
+    """Natural Earth populated places, found by GeoNames id, or by name within ~15 km when ids differ."""
+
+    def __init__(self, features: list[dict]):
+        self.by_id: dict[str, dict] = {}
+        self.by_name: dict[str, list[tuple[float, float, dict]]] = defaultdict(list)
+        for f in features:
+            p = f["properties"]
+            gid = p.get("GEONAMESID") or 0
+            if isinstance(gid, (int, float)) and gid > 0:
+                self.by_id[str(int(gid))] = p
+            g = f.get("geometry") or {}
+            if g.get("type") == "Point" and p.get("NAME"):
+                lng, lat = g["coordinates"][:2]
+                for key in ("NAME", "NAMEASCII", "NAME_EN"):
+                    if p.get(key):
+                        self.by_name[fold(p[key])].append((lat, lng, p))
+
+    def lookup(self, gid: str, name: str, lat: float, lng: float) -> dict | None:
+        if gid in self.by_id:
+            return self.by_id[gid]
+        for plat, plng, p in self.by_name.get(fold(name), []):
+            if abs(plat - lat) < 0.15 and abs(plng - lng) < 0.15 / max(0.2, np.cos(np.radians(lat))):
+                return p
+        return None
+
+
+def ne_city_index(src: Path) -> NeCityIndex:
+    path = src / "ne_10m_populated_places.geojson"
+    return NeCityIndex(json.loads(path.read_text())["features"] if path.exists() else [])
 
 
 @dataclass
@@ -266,6 +325,7 @@ def build_places(src: Path, out: Path, zone_tab: Path = Path("/usr/share/zoneinf
             cities_by_state[c.state].append(c)
 
     search: list[list] = []
+    ne_index = ne_city_index(src)
     shutil_rm(out / "places")
     prepared_country: dict[str, g.Prepared] = {}
     ref_lng: dict[str, float] = {}
@@ -290,7 +350,7 @@ def build_places(src: Path, out: Path, zone_tab: Path = Path("/usr/share/zoneinf
             states_out.append({"id": sid, "name": sname, "type": stype, **_region(sprep)})
             alts = _all_aliases(sname, [sp.get("name"), sp.get("name_alt"), sp.get("name_local"), sp.get("woe_name"), sp.get("gn_name")], limit=5)
             rank = sum(x.pop for x in cities_by_state[sid])
-            search.append([1, sid, sname, alts, f"{stype} · {name}", rank, cid])
+            search.append([1, sid, sname, alts, f"{stype} in {name}", rank, cid])
 
         city_rows = []
         for x in sorted(cities_by_cid[cid], key=lambda x: -x.pop):
@@ -299,7 +359,10 @@ def build_places(src: Path, out: Path, zone_tab: Path = Path("/usr/share/zoneinf
             if x.pop >= SEARCH_MIN_POP:
                 state_name = states_raw[x.state]["props"].get("name_en") or states_raw[x.state]["props"].get("name") if x.state else None
                 ctx = f"{state_name}, {name}" if state_name and state_name != x.name else name
-                search.append([2, x.id, x.name, latin_aliases(x.name, x.alts, limit=3), ctx, x.pop, cid, round(lng, 3), round(x.lat, 3)])
+                fields = ne_index.lookup(x.id, x.name, x.lat, x.lng)
+                local = ordered_city_names(fields, x.cc) if fields else []
+                aliases = latin_aliases(x.name, local + x.alts, limit=4 if local else 3)
+                search.append([2, x.id, x.name, aliases, ctx, x.pop, cid, round(lng, 3), round(x.lat, 3)])
 
         _write_json(out / "places" / f"{cid}.json", {"v": 1, "id": cid, "name": name, **_region(prep),
                                                        "states": states_out, "cities": city_rows})

@@ -48,6 +48,8 @@ def world(tmp_path):
             city_row(6, "Lagoon Town", 1.335, 173.05, 60_000, "KK")]
     with zipfile.ZipFile(src / "cities15000.zip", "w") as zf:
         zf.writestr("cities15000.txt", "\n".join(rows) + "\n")
+    (src / "ne_10m_populated_places.geojson").write_text(json.dumps({"features": [
+        {"type": "Feature", "geometry": None, "properties": {"GEONAMESID": 1, "NAME": "Big City", "NAMEPAR": "Grosse Stadt", "NAME_DE": "Große Stadt"}}]}))
     zone_tab = tmp_path / "zone.tab"
     zone_tab.write_text("# comment\nIN\t+2232+08822\tAsia/Kolkata\nDK\t+5540+01235\tEurope/Copenhagen\n")
     return src, zone_tab
@@ -74,6 +76,7 @@ def test_build_places_writes_country_files_search_index_and_views(world, tmp_pat
     assert {(0, "AA"), (0, "DD"), (0, "KK"), (1, "AAA-1"), (1, "AAA-2"), (2, "1"), (2, "3"), (2, "4"), (2, "5")} == kinds
     big = next(r for r in items if r[1] == "1")
     assert big[4] == "Westy, Aland" and big[6] == "AA" and "Grande Ville" in big[3]
+    assert big[3][0] == "Grosse Stadt"  # Natural Earth's local name leads (no language known for AA)
     assert "Alandland" in next(r for r in items if r[1] == "AA")[3]
 
     assert summary.povs == {"IND": ["AA"]}

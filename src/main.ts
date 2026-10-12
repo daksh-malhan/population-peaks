@@ -1,31 +1,69 @@
 import '@fontsource-variable/sora';
 import './styles/main.css';
-import { DATA_URL } from './config';
-import { loadManifest } from './data/manifest';
-import { PlaceRepository, resolvePlace } from './data/places';
-import { RegionClient } from './region/client';
-import { PALETTES } from './render/palettes';
-import { regionPeak } from './render/heightfield';
-import { MapScene } from './render/scene';
+import { App } from './app/app';
+import { chooseInitial } from './app/initial';
+import { browserStorage, loadGallery, loadPrefs } from './app/persist';
+import { BASE_URL, DATA_URL } from './config';
+import { loadManifest, type Manifest } from './data/manifest';
+import { posterExporter } from './render/poster';
+import { h } from './ui/dom';
 
-// Temporary renderer harness (replaced by the app shell in the UI task).
-async function main() {
-  const app = document.getElementById('app')!;
-  const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'width:100vw;height:100vh;display:block';
-  app.append(canvas);
-  const manifest = await loadManifest(DATA_URL);
-  const places = new PlaceRepository(DATA_URL, manifest);
-  const worker = new Worker(new URL('./worker/region.worker.ts', import.meta.url), { type: 'module' });
-  const regions = new RegionClient(worker, DATA_URL, manifest.tileIndex);
-  const id = new URLSearchParams(location.search).get('c') ?? 'HU';
-  const place = await resolvePlace(places, { kind: 'country', id }, {});
-  const grid = await regions.build({ ...place.region, targetCells: 560 });
-  const scene = new MapScene(canvas, { palette: PALETTES.ember, heightScale: 1, peak: regionPeak(grid.density, grid.mask) });
-  const outline = place.region.shape.kind === 'polygons' ? place.region.shape.polygons : null;
-  scene.setRegion(grid, outline, place.region.highlight ?? null);
-  new ResizeObserver(() => scene.resize()).observe(canvas);
-  Object.assign(window, { __scene: scene, __grid: grid });
+function supportsWebGL2(): boolean {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2');
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+    return !!gl;
+  } catch {
+    return false;
+  }
 }
 
-main().catch((e: unknown) => console.error(e));
+function fatal(root: HTMLElement, message: string, extra?: Node | null, retry?: () => void): void {
+  root.replaceChildren(
+    h(
+      'div',
+      { class: 'fatal' },
+      h('p', { class: 'fatal-brand', text: 'population peaks' }),
+      h('h1', { text: message }),
+      extra ?? null,
+      retry ? h('button', { class: 'btn btn-primary', text: 'Try again', attrs: { type: 'button' }, on: { click: retry } }) : null,
+    ),
+  );
+}
+
+/** Without WebGL, show the country's pre-rendered poster when this is its preview page. */
+function previewFor(manifest: Manifest): HTMLElement | null {
+  const m = new RegExp(`^${BASE_URL}p/([a-z]{2,3})/?$`).exec(location.pathname);
+  const country = manifest.countries.find((c) => c.id === m?.[1]?.toUpperCase());
+  if (!country?.preview) return null;
+  return h('img', { class: 'fatal-preview', attrs: { src: `${DATA_URL}previews/poster/${country.id}.png`, alt: `Poster of ${country.name}'s population distribution`, width: 540, height: 675 } });
+}
+
+async function boot(): Promise<void> {
+  const root = document.getElementById('app');
+  if (!root) return;
+  root.replaceChildren(h('p', { class: 'boot', text: 'Loading map data…' }));
+  let manifest: Manifest;
+  try {
+    manifest = await loadManifest(DATA_URL);
+  } catch (e) {
+    console.error(e);
+    fatal(root, "Couldn't load map data. Check your connection and try again.", null, () => void boot());
+    return;
+  }
+  if (!supportsWebGL2()) {
+    fatal(root, "This browser can't draw 3D maps. Try a recent version of Chrome, Safari, Firefox or Edge.", previewFor(manifest));
+    return;
+  }
+  const storage = browserStorage();
+  const initial = chooseInitial({
+    hash: location.hash,
+    pathname: location.pathname,
+    base: BASE_URL,
+    saved: loadGallery(storage),
+    countries: new Set(manifest.countries.map((c) => c.id)),
+  });
+  new App(root, manifest, initial, storage, loadPrefs(storage), posterExporter).start();
+}
+
+void boot();
