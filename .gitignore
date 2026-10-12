@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+
+# generated data (never committed; see data-release.json)
+/data/
+/work/
+/out/
+public/data
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# local tooling
+.claude/
+.superpowers/
+.DS_Store
+*.log
