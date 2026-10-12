@@ -1,0 +1,23 @@
+{
+ "total": 3968164.0,
+ "population": {
+  "ZZ": 3282233.0,
+  "ZX": 683231.0,
+  "ZY": 900.0,
+  "ZY_context": 2700.0,
+  "ZZZ-1": 2628245.0,
+  "ZZZ-2": 653988.0
+ },
+ "peak": {
+  "ZZ": {
+   "city": "Capital City",
+   "lat": 30.1,
+   "lng": -40.4
+  },
+  "ZX": {
+   "city": "Date City",
+   "lat": -17.3,
+   "lng": 179.8
+  }
+ }
+}

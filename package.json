@@ -16,7 +16,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "fixture": "cd pipeline && .venv/bin/python -m pp_pipeline.fixture --out ../fixtures/data",
+    "test:pipeline": "cd pipeline && .venv/bin/pytest"
   },
   "dependencies": {
     "@fontsource-variable/sora": "5.3.0",
