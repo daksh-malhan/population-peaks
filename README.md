@@ -100,7 +100,7 @@ The **Build data release** workflow downloads all 250 Kontur files, verifying ea
 
 ## Limits
 
-- Population numbers are Kontur's 2023 estimates. Totals shown on cards are rounded and can differ slightly from official figures, especially for very small places.
+- Population numbers are Kontur's 2023 estimates, not census counts. Totals for the countries checked (Hungary, Austria, Switzerland) are within about 1% of official figures, but a single state or city can be off by 10% or more: Kontur puts Vienna at 1.7 million, while Austria counts 2.0 million.
 - Detail is about 1 km, so city views are smooth rather than street-level.
 - GitHub Pages can't send security headers, so the policy is set in the page. That means framing by other sites can't be blocked.
 - 3D needs WebGL2. Without it, country pages show a pre-rendered poster.
