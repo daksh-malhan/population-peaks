@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
-import { securityMetaPlugin } from './config/csp';
-import { fontPreloadPlugin } from './config/fontPreload';
+import { securityMetaPlugin } from './config/csp.ts';
+import { fontPreloadPlugin } from './config/fontPreload.ts';
 
 const base = '/population-peaks/';
 
