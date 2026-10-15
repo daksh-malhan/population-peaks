@@ -6,7 +6,7 @@ import type { BBox } from '../geo/geomCodec';
 import { makeLaea } from '../geo/laea';
 import { RegionClient } from '../region/client';
 import type { RegionGrid } from '../region/types';
-import { regionPeak } from '../render/heightfield';
+import { type ColorRange, colorRangeFor, DEFAULT_RANGE, legendLabels, regionPeak } from '../render/heightfield';
 import { type LabelCandidate, pickLabels } from '../render/labels';
 import { PALETTES, rampColor } from '../render/palettes';
 import { MapScene } from '../render/scene';
@@ -41,6 +41,8 @@ interface Runtime {
   place?: ResolvedPlace;
   grid?: RegionGrid;
   peak: number;
+  /** The place's own colour range (the poster's fixed scale unless it is dense). */
+  colors: ColorRange;
   cities: CityLabel[];
   thumb?: HTMLCanvasElement;
   promise?: Promise<Runtime>;
@@ -119,6 +121,8 @@ export class App {
   private foot!: HTMLElement;
   private readonly status = h('p', { class: 'stage-status', attrs: { role: 'status' } });
   private readonly stats = h('p', { class: 'stage-stats' });
+  private readonly legendLow = h('span', { text: 'Low' });
+  private readonly legendHigh = h('span', { text: '5,000+' });
   private readonly tooltip = h('div', { class: 'tooltip', attrs: { 'aria-hidden': 'true' } });
 
   constructor(
@@ -199,7 +203,7 @@ export class App {
       { class: 'legend' },
       h('span', { class: 'legend-title', text: 'People per km²' }),
       h('span', { class: 'legend-bar', attrs: { 'aria-hidden': 'true' } }),
-      h('span', { class: 'legend-scale' }, h('span', { text: 'Low' }), h('span', { text: '5,000+' })),
+      h('span', { class: 'legend-scale' }, this.legendLow, this.legendHigh),
     );
     this.foot = h('div', { class: 'stage-foot' }, legend, this.stats);
     const stage = h(
@@ -303,7 +307,7 @@ export class App {
     const existing = this.runtimes.get(key);
     if (existing?.status === 'ready') return Promise.resolve(existing);
     if (existing?.promise) return existing.promise;
-    const rt: Runtime = { key, status: 'loading', peak: 0, cities: [] };
+    const rt: Runtime = { key, status: 'loading', peak: 0, colors: DEFAULT_RANGE, cities: [] };
     this.runtimes.set(key, rt);
     rt.promise = (async () => {
       try {
@@ -312,13 +316,14 @@ export class App {
         rt.place = place;
         rt.grid = grid;
         rt.peak = regionPeak(grid.density, grid.mask);
+        rt.colors = colorRangeFor(grid.density, grid.mask);
         // Whole countries and states label their own cities; circles (cities, tiny places) may cross borders.
         const circle = place.region.shape.kind === 'circle';
         const center = (place.region.bbox[0] + place.region.bbox[2]) / 2;
         const cid = spec.k === 'c' ? spec.id : (spec.c ?? '');
         rt.cities = await (circle ? this.places.citiesIn(expand(place.region.bbox, 0.05)) : this.places.countryCities(cid, center)).catch(() => []);
         const thumb = h('canvas');
-        timed('thumbnail', () => drawThumbnail(thumb, grid, PALETTES[this.state.palette]));
+        timed('thumbnail', () => drawThumbnail(thumb, grid, PALETTES[this.state.palette], rt.colors));
         rt.thumb = thumb;
         rt.status = 'ready';
       } catch (e) {
@@ -372,6 +377,7 @@ export class App {
       palette: PALETTES[this.state.palette],
       heightScale: this.state.height,
       peak: this.effectivePeak(rt),
+      colors: this.effectiveColors(rt),
     });
     this.computeLabels();
     this.renderAll();
@@ -387,8 +393,20 @@ export class App {
     return peak;
   }
 
+  /** A place's own colour range, or the fixed one when the gallery shares a scale (an honest comparison). */
+  private effectiveColors(rt: Runtime): ColorRange {
+    return this.state.scale === 'own' ? rt.colors : DEFAULT_RANGE;
+  }
+
   private applyPeak(): void {
-    if (this.activeRuntime) this.scene?.setSettings({ peak: this.effectivePeak(this.activeRuntime) });
+    if (this.activeRuntime) this.scene?.setSettings({ peak: this.effectivePeak(this.activeRuntime), colors: this.effectiveColors(this.activeRuntime) });
+    this.renderLegend();
+  }
+
+  private renderLegend(): void {
+    const [low, high] = legendLabels(this.activeRuntime ? this.effectiveColors(this.activeRuntime) : DEFAULT_RANGE);
+    setText(this.legendLow, low);
+    setText(this.legendHigh, high);
   }
 
   // ---- labels -------------------------------------------------------------
@@ -503,7 +521,7 @@ export class App {
     this.commit({ ...this.state, palette: id });
     this.scene?.setSettings({ palette: PALETTES[id] });
     this.applyAccent();
-    for (const rt of this.runtimes.values()) if (rt.grid && rt.thumb) drawThumbnail(rt.thumb, rt.grid, PALETTES[id]);
+    for (const rt of this.runtimes.values()) if (rt.grid && rt.thumb) drawThumbnail(rt.thumb, rt.grid, PALETTES[id], rt.colors);
     this.renderGallery();
   }
 
@@ -624,14 +642,13 @@ export class App {
     if (rt?.grid && rt.place) {
       const { population, peakDensity, peak } = rt.grid.stats;
       const near = this.nearestCity(peak[0], peak[1]);
-      const lines = [`${formatPopulation(population)} people`, `Peak ${formatDensity(peakDensity)}${near ? ` near ${near}` : ''}`];
+      // A place smaller than one map pixel (the Vatican) has no peak of its own, as on its card.
+      const lines = [`${formatPopulation(population)} people`, peakDensity > 0 ? `Peak ${formatDensity(peakDensity)}${near ? ` near ${near}` : ''}` : ''];
       if (this.stats.textContent !== lines.join('')) {
-        this.stats.replaceChildren(h('span', { text: lines[0] }), h('span', { class: 'muted', text: lines[1] }));
+        this.stats.replaceChildren(h('span', { text: lines[0] }), ...(lines[1] ? [h('span', { class: 'muted', text: lines[1] })] : []));
       }
-      this.canvas.setAttribute(
-        'aria-label',
-        `3D population map of ${name}. About ${formatPopulation(population).replace('≈ ', '')} people; the densest area${near ? `, near ${near},` : ''} has about ${formatDensity(peakDensity).replace(' /km²', '')} people per square kilometre.`,
-      );
+      const densest = peakDensity > 0 ? `; the densest area${near ? `, near ${near},` : ''} has about ${formatDensity(peakDensity).replace(' /km²', '')} people per square kilometre` : '';
+      this.canvas.setAttribute('aria-label', `3D population map of ${name}. About ${formatPopulation(population).replace('≈ ', '')} people${densest}.`);
     } else {
       this.stats.replaceChildren();
       this.canvas.setAttribute('aria-label', 'Population map');
@@ -685,6 +702,7 @@ export class App {
 
   private renderAll(): void {
     this.renderStageText();
+    this.renderLegend();
     this.renderGallery();
     this.renderPanel();
   }
