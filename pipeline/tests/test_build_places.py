@@ -95,3 +95,39 @@ def test_geometry_in_place_files_decodes_to_the_outline(world, tmp_path):
     aa = json.loads((out / "places" / "AA.json").read_text())
     poly = g.decode(aa["geom"])[0]
     assert poly.bounds == pytest.approx((-120, 30, -80, 48), abs=0.01)
+
+
+def test_views_merge_every_feature_of_a_country_and_ignore_degenerate_outlines(world, tmp_path):
+    src, zone_tab = world
+    base = json.loads((src / "ne_10m_admin_0_countries.geojson").read_text())["features"]
+    territory = country("AA", "AAT", "Aland Territories", box(-100, 10, -99, 11), pop=5_000)
+    (src / "ne_10m_admin_0_countries.geojson").write_text(json.dumps({"features": base + [territory]}))
+    view = [
+        country("AA", "AAA", "Aland", box(-120, 30, -78, 48)),  # drawn a little bigger in this view
+        country("AA", "AAB", "Aland Breakaway", box(-80, 30, -76, 34)),  # a split-off area this view counts as Aland
+        country("AA", "AAX", "Aland Rock", box(-60, 10, -59.99, 10.01), pop=0),  # an uninhabited speck, listed last
+        territory,  # its own country in the base, so it stays apart
+        country("DD", "DDD", "Dateland", box(179, -17, 179.01, -16.99)),  # a view that leaves Dateland a speck
+        country("KK", "KKK", "Atollia", box(-170, -30, 170, 30)),  # a claim to vastly more land, not a border
+    ]
+    (src / "ne_10m_admin_0_countries_usa.geojson").write_text(json.dumps({"features": view}))
+    out = tmp_path / "out"
+    summary = pl.build_places(src, out, zone_tab=zone_tab, log=lambda *_: None)
+
+    assert summary.povs["USA"] == ["AA"]
+    aa = json.loads((out / "places" / "pov" / "USA" / "AA.json").read_text())
+    assert aa["bbox"] == pytest.approx([-120, 30, -76, 48], abs=0.01)
+    assert not aa["tiny"]
+
+
+def test_views_skip_known_natural_earth_slips(world, tmp_path, monkeypatch):
+    src, zone_tab = world
+    # A view that drops part of Aland without giving it to anyone, listed as a known slip.
+    monkeypatch.setattr(pl, "VIEW_ERRATA", {("USA", "AA")})
+    view = [country("AA", "AAA", "Aland", box(-120, 30, -90, 48)), country("DD", "DDD", "Dateland", box(-180, -19, -178, -16).union(box(177, -19, 180, -16)))]
+    (src / "ne_10m_admin_0_countries_usa.geojson").write_text(json.dumps({"features": view}))
+    out = tmp_path / "out"
+    logs: list[str] = []
+    summary = pl.build_places(src, out, zone_tab=zone_tab, log=logs.append)
+    assert "USA" not in summary.povs
+    assert any("view USA" in line and "AA" in line for line in logs)

@@ -29,6 +29,12 @@ POV_ISO2 = {
     "mar": "MA", "nep": "NP", "nld": "NL", "pak": "PK", "pol": "PL", "prt": "PT", "pse": "PS", "rus": "RU",
     "sau": "SA", "swe": "SE", "tur": "TR", "twn": "TW", "ukr": "UA", "usa": "US", "vnm": "VN",
 }
+# Natural Earth 5.1.2 slips: views that leave undisputed land to no country. These countries keep
+# their usual outline in those views. (Disputed land a view leaves blank, such as the Golan Heights
+# in several European views, is intentional and stays as drawn.)
+VIEW_ERRATA = {
+    ("GBR", "GE"), ("USA", "GE"),  # Adjara, Georgia
+}
 # Browsers sometimes report pre-rename IANA ids (Chrome long reported "Asia/Calcutta").
 TZ_ALIASES = {
     "Asia/Calcutta": "Asia/Kolkata", "Europe/Kiev": "Europe/Kyiv", "Asia/Katmandu": "Asia/Kathmandu",
@@ -204,15 +210,23 @@ def assign_points(polys_by_id: dict[str, list[Polygon]], points: list[tuple[floa
     return out
 
 
-def pov_changes(base: dict[str, list[Polygon]], view: dict[str, list[Polygon]]) -> list[str]:
+def pov_changes(base: dict[str, list[Polygon]], view: dict[str, list[Polygon]], ignored: list[str] | None = None) -> list[str]:
+    """Countries a view draws differently. A view that leaves a country under 1% of its usual area
+    does not really draw it, and one that makes it over 10 times larger is claiming other land rather
+    than drawing a border; both keep the usual outline (and are listed in `ignored`)."""
     changed = []
     for cid, polys in view.items():
         if cid not in base:
             continue
         a = shapely.make_valid(shapely.union_all(base[cid]))
         b = shapely.make_valid(shapely.union_all(polys))
+        area = g.area_km2(a)
+        if not 0.01 <= g.area_km2(b) / area <= 10:
+            if ignored is not None:
+                ignored.append(cid)
+            continue
         diff = g.area_km2(shapely.symmetric_difference(a, b))
-        if diff > max(50.0, 0.002 * g.area_km2(a)):
+        if diff > max(50.0, 0.002 * area):
             changed.append(cid)
     return sorted(changed)
 
@@ -376,20 +390,26 @@ def build_places(src: Path, out: Path, zone_tab: Path = Path("/usr/share/zoneinf
         path = src / f"ne_10m_admin_0_countries_{code}.geojson"
         if not path.exists():
             continue
-        view = {}
+        # A country can be several features (Australia and its uninhabited reefs share "AU"), so parts are
+        # merged. Features route as in the base; ones the base skipped join the country their code names.
+        view: dict[str, list[Polygon]] = {}
         for f in _load_features(path):
             if not f["geometry"]:
                 continue
-            cid = country_id(f["properties"])
+            cid = a3_to_cid.get(f["properties"]["ADM0_A3"]) or country_id(f["properties"])
             if cid in countries:
-                view[cid] = g.parts_of(shapely.make_valid(shape(f["geometry"])))
-        changed = pov_changes(raw_by_cid, view)
+                view.setdefault(cid, []).extend(g.parts_of(shapely.make_valid(shape(f["geometry"]))))
+        ignored: list[str] = []
+        changed = pov_changes(raw_by_cid, view, ignored)
+        ignored += [cid for cid in changed if (code.upper(), cid) in VIEW_ERRATA]
+        changed = [cid for cid in changed if (code.upper(), cid) not in VIEW_ERRATA]
         for cid in changed:
             prep = g.prepare(shapely.union_all(view[cid]), weight_of=_weight_fn(cities_by_cid[cid]), ref_lng=ref_lng[cid])
             _write_json(out / "places" / "pov" / code.upper() / f"{cid}.json", {"v": 1, "id": cid, **_region(prep)})
         if changed:
             summary.povs[code.upper()] = changed
-        log(f"  view {code.upper()} ({iso}): {len(changed)} outlines differ")
+        log(f"  view {code.upper()} ({iso}): {len(changed)} outlines differ"
+            + (f"; kept the usual outline of {', '.join(sorted(ignored))}" if ignored else ""))
 
     search.sort(key=lambda r: (r[0], -r[5], r[2]))
     _write_json(out / "search.json", {"v": 1, "items": search})

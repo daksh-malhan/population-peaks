@@ -49,6 +49,14 @@ def test_pov_diff_ignores_identical_outlines_and_reports_changed_ones():
     assert pl.pov_changes(base, view) == ["IN"]
 
 
+def test_pov_diff_keeps_the_usual_outline_when_a_view_erases_or_balloons_a_country():
+    base = {"IL": [box(34, 29, 36, 33)], "TW": [box(120, 22, 122, 25)], "PK": [box(60, 23, 77, 37)]}
+    view = {"IL": [box(35, 31, 35.01, 31.01)], "TW": [box(73, 18, 135, 53)], "PK": [box(60, 23, 77, 37.5)]}
+    ignored: list[str] = []
+    assert pl.pov_changes(base, view, ignored) == ["PK"]
+    assert ignored == ["IL", "TW"]
+
+
 def test_tz_to_pov_covers_canonical_zones_and_legacy_aliases():
     tz = pl.tz_to_pov("/usr/share/zoneinfo/zone.tab")
     assert tz["Asia/Kolkata"] == "IND"
