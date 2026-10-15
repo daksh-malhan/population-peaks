@@ -40,21 +40,21 @@ const circle: RegionRequest = { bbox: [-40.6, 29.9, -40.2, 30.3], shape: { kind:
 describe('RegionClient', () => {
   it('builds regions through the worker protocol', async () => {
     const { worker, sent } = await fakeWorker();
-    const client = new RegionClient(worker, '/data/', ['AA==']);
+    const client = new RegionClient(worker, ['AA==']);
     const grid = await client.build(circle);
     expect(grid.stats.population).toBeGreaterThan(100_000);
-    expect(sent[0]).toMatchObject({ type: 'init', dataUrl: '/data/' });
+    expect(sent[0]).toEqual({ type: 'init', tileIndex: ['AA=='] });
   });
 
   it('turns worker errors into rejected promises', async () => {
     const { worker } = await fakeWorker();
-    const client = new RegionClient(worker, '/data/', []);
+    const client = new RegionClient(worker, []);
     await expect(client.build({ ...circle, targetCells: 3 })).rejects.toThrow(/targetCells/);
   });
 
   it('cancels the worker job and rejects with AbortError on abort', async () => {
     const { worker, sent } = await fakeWorker();
-    const client = new RegionClient(worker, '/data/', []);
+    const client = new RegionClient(worker, []);
     const ctl = new AbortController();
     const p = client.build(circle, ctl.signal);
     ctl.abort();

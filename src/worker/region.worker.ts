@@ -1,3 +1,4 @@
+import { DATA_URL } from '../config';
 import { TileIndex } from '../data/tileIndex';
 import { HttpTileSource, TileStore } from '../data/tileStore';
 import { buildRegion } from '../region/buildRegion';
@@ -14,7 +15,7 @@ const jobs = new Map<number, AbortController>();
 ctx.addEventListener('message', (e) => {
   const msg = e.data;
   if (msg.type === 'init') {
-    store = new TileStore(new HttpTileSource(msg.dataUrl), new TileIndex(msg.tileIndex));
+    store = new TileStore(new HttpTileSource(DATA_URL), new TileIndex(msg.tileIndex));
     return;
   }
   if (msg.type === 'cancel') {

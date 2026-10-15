@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { rowAreaKm2 } from '../geo/mercator';
 import { type Expected, FsTileSource, readJson } from '../test/fixture';
 import { decodeTile } from './tileCodec';
 import { TileIndex } from './tileIndex';
-import { TileStore } from './tileStore';
+import { HttpTileSource, TileStore } from './tileStore';
 
 async function indexFromFixture() {
   const idx = await readJson<{ bits: string[] }>('tiles/index.json');
@@ -78,5 +78,25 @@ describe('tile store', () => {
     const ctl = new AbortController();
     ctl.abort();
     await expect(store.get(7, 49, 52, ctl.signal)).rejects.toMatchObject({ name: 'AbortError' });
+  });
+});
+
+describe('HTTP tile source', () => {
+  it('requests only real tile addresses, from the data folder', async () => {
+    const urls: string[] = [];
+    vi.stubGlobal('fetch', (url: string) => {
+      urls.push(url);
+      return Promise.resolve(new Response(null, { status: 404 }));
+    });
+    try {
+      const src = new HttpTileSource('/data/');
+      await expect(src.fetchTile(7, 127, 0)).resolves.toBeNull();
+      for (const [z, x, y] of [[7, 128, 0], [7, -1, 0], [1.5, 0, 0], [7, 0, Number.NaN], [-1, 0, 0]] as const) {
+        await expect(src.fetchTile(z, x, y)).rejects.toThrow(RangeError);
+      }
+      expect(urls).toEqual(['/data/tiles/7/127/0.bin']);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });

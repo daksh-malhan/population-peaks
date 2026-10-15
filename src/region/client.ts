@@ -7,7 +7,7 @@ export interface WorkerLike {
 }
 
 export type WorkerIn =
-  | { type: 'init'; dataUrl: string; tileIndex: string[] }
+  | { type: 'init'; tileIndex: string[] }
   | { type: 'build'; id: number; req: RegionRequest }
   | { type: 'cancel'; id: number };
 
@@ -25,11 +25,10 @@ export class RegionClient {
 
   constructor(
     private readonly worker: WorkerLike,
-    dataUrl: string,
     tileIndex: string[],
   ) {
     worker.addEventListener('message', (e) => this.onMessage(e.data as WorkerOut));
-    this.send({ type: 'init', dataUrl, tileIndex });
+    this.send({ type: 'init', tileIndex });
   }
 
   private send(msg: WorkerIn): void {

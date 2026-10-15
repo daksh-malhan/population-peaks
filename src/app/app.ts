@@ -131,7 +131,7 @@ export class App {
     this.pov = this.currentPov();
     this.places = new PlaceRepository(DATA_URL, manifest);
     const worker = new Worker(new URL('../worker/region.worker.ts', import.meta.url), { type: 'module' });
-    this.regions = new RegionClient(worker, DATA_URL, manifest.tileIndex);
+    this.regions = new RegionClient(worker, manifest.tileIndex);
     const coarse = window.matchMedia('(pointer: coarse)').matches || Math.min(window.screen.width, window.screen.height) < 700;
     this.targetCells = coarse ? 380 : 560;
 

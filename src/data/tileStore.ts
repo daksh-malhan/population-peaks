@@ -9,6 +9,8 @@ export class HttpTileSource implements TileSource {
   constructor(private readonly dataUrl: string) {}
 
   async fetchTile(z: number, x: number, y: number, signal?: AbortSignal): Promise<ArrayBuffer | null> {
+    const n = 2 ** z;
+    if (![z, x, y].every(Number.isSafeInteger) || z < 0 || z > 24 || x < 0 || x >= n || y < 0 || y >= n) throw new RangeError(`no tile ${z}/${x}/${y}`);
     const res = await fetch(`${this.dataUrl}tiles/${z}/${x}/${y}.bin`, { signal, credentials: 'omit', mode: 'same-origin' });
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(`tile ${z}/${x}/${y}: HTTP ${res.status}`);
