@@ -68,26 +68,30 @@ export interface Box {
 }
 
 /**
- * Greedy placement in priority order: above the point, else right, left, below; hidden if
- * nothing fits. `obstacles` (title, legend, footer) are areas labels must not cover.
+ * Greedy placement, biggest city first: above the point, else right, left, below; hidden if nothing
+ * fits. Labels never cover each other, a shown city's dot, or `obstacles` (title, legend, footer).
+ * A label avoids smaller cities' dots when it can; a smaller city whose dot it still covers is hidden.
  */
 export function placeLabels(anchors: readonly Anchor[], frame: { width: number; height: number }, gap: number, obstacles: readonly Box[] = []): Placement[] {
-  const boxes: Box[] = [...obstacles];
-  return anchors.map((a) => {
+  const taken: Box[] = [...obstacles];
+  const r = gap * 0.3;
+  const dots: Box[] = anchors.map((a) => ({ x: a.x - r, y: a.y - r, w: 2 * r, h: 2 * r }));
+  const hit = (p: Box, b: Box) => !(p.x + p.w <= b.x || b.x + b.w <= p.x || p.y + p.h <= b.y || b.y + b.h <= p.y);
+  return anchors.map((a, i) => {
+    const hidden = { id: a.id, x: a.x, y: a.y, side: 'above' as Side, visible: false };
+    if (taken.some((b) => hit(dots[i]!, b))) return hidden;
     const options: [Side, number, number][] = [
       ['above', a.x - a.w / 2, a.y - gap - a.h],
       ['right', a.x + gap * 0.7, a.y - a.h / 2],
       ['left', a.x - gap * 0.7 - a.w, a.y - a.h / 2],
       ['below', a.x - a.w / 2, a.y + gap],
     ];
-    for (const [side, x, y] of options) {
-      const fits = x >= 0 && y >= 0 && x + a.w <= frame.width && y + a.h <= frame.height;
-      const clear = boxes.every((b) => x + a.w <= b.x || b.x + b.w <= x || y + a.h <= b.y || b.y + b.h <= y);
-      if (fits && clear) {
-        boxes.push({ x, y, w: a.w, h: a.h });
-        return { id: a.id, x, y, side, visible: true };
-      }
-    }
-    return { id: a.id, x: a.x, y: a.y, side: 'above' as Side, visible: false };
+    const free = options
+      .map(([side, x, y]) => ({ side, box: { x, y, w: a.w, h: a.h } }))
+      .filter(({ box }) => box.x >= 0 && box.y >= 0 && box.x + box.w <= frame.width && box.y + box.h <= frame.height && !taken.some((b) => hit(box, b)));
+    const pick = free.find(({ box }) => !dots.slice(i + 1).some((d) => hit(box, d))) ?? free[0];
+    if (!pick) return hidden;
+    taken.push(pick.box, dots[i]!);
+    return { id: a.id, x: pick.box.x, y: pick.box.y, side: pick.side, visible: true };
   });
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canPrintWith, POSTER_SIZES, posterLayout, wrapTitle } from './poster';
+import { canPrintWith, mapFrame, POSTER_SIZES, posterLayout, wrapTitle } from './poster';
 
 // Monospace-ish stand-in for canvas measureText: 0.55 em per character.
 const measure = (text: string, size: number) => text.length * size * 0.55;
@@ -34,6 +34,26 @@ describe('posterLayout', () => {
     const p = posterLayout('portrait', 1080, 1350);
     const s = posterLayout('story', 1080, 1920);
     expect(s.mapBottom - s.mapTop).toBeGreaterThan(p.mapBottom - p.mapTop);
+  });
+});
+
+describe('mapFrame', () => {
+  it('keeps the whole map between the title and the legend, in every format', () => {
+    for (const format of ['portrait', 'story', 'print', 'og'] as const) {
+      const [W, H] = POSTER_SIZES[format];
+      const L = posterLayout(format, W, H);
+      for (const lines of [1, 2]) {
+        for (const subtitle of [false, true]) {
+          const titleBottom = L.margin + L.titleSize * 1.12 * lines + (subtitle ? L.subtitleSize * 1.6 : 0);
+          const { ndcY, offsetY } = mapFrame(L, titleBottom, H);
+          // The map may fill ±ndcY of the frame around a centre moved offsetY px down.
+          const top = H / 2 + offsetY - (ndcY * H) / 2;
+          const bottom = H / 2 + offsetY + (ndcY * H) / 2;
+          expect(top, `${format}, ${lines} line(s), subtitle ${subtitle}`).toBeGreaterThanOrEqual(titleBottom);
+          expect(bottom, `${format}, ${lines} line(s), subtitle ${subtitle}`).toBeLessThanOrEqual(L.legendY - L.legendSize * 1.4);
+        }
+      }
+    }
   });
 });
 

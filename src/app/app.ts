@@ -115,6 +115,8 @@ export class App {
   private readonly canvas = h('canvas', { class: 'stage-canvas', attrs: { role: 'img', 'aria-label': 'Population map' } });
   private readonly title = h('h1', { class: 'stage-title' });
   private readonly subtitle = h('p', { class: 'stage-subtitle' });
+  private readonly head = h('div', { class: 'stage-head' }, this.title, this.subtitle);
+  private foot!: HTMLElement;
   private readonly status = h('p', { class: 'stage-status', attrs: { role: 'status' } });
   private readonly stats = h('p', { class: 'stage-stats' });
   private readonly tooltip = h('div', { class: 'tooltip', attrs: { 'aria-hidden': 'true' } });
@@ -181,6 +183,8 @@ export class App {
       this.scene = timed('scene', () => new MapScene(this.canvas, { palette: PALETTES[this.state.palette], heightScale: this.state.height, peak: 1 }));
       this.scene.onRender(() => this.placeLabels());
       new ResizeObserver(() => this.scene?.resize()).observe(this.canvas);
+      // Keep spikes and their labels clear of the title, however many lines it wraps to.
+      new ResizeObserver(() => this.scene?.setTopInset(this.head.offsetTop + this.head.offsetHeight + 12)).observe(this.head);
       return this.showActive();
     });
     this.exposeAutomation(ready);
@@ -197,14 +201,15 @@ export class App {
       h('span', { class: 'legend-bar', attrs: { 'aria-hidden': 'true' } }),
       h('span', { class: 'legend-scale' }, h('span', { text: 'Low' }), h('span', { text: '5,000+' })),
     );
+    this.foot = h('div', { class: 'stage-foot' }, legend, this.stats);
     const stage = h(
       'section',
       { class: 'stage', attrs: { 'aria-label': 'Map' } },
-      h('div', { class: 'stage-head' }, this.title, this.subtitle),
+      this.head,
       this.canvas,
       this.labels.el,
       this.status,
-      h('div', { class: 'stage-foot' }, legend, this.stats),
+      this.foot,
       this.tooltip,
     );
     const header = h(
@@ -420,9 +425,14 @@ export class App {
     const scene = this.scene;
     if (!scene) return;
     const frame = { width: this.canvas.clientWidth, height: this.canvas.clientHeight };
+    const footTop = this.foot.offsetTop;
     this.labels.update(
       this.activeLabels.map((c) => ({ id: c.id, name: c.name, ...scene.project(c.lng, c.lat) })),
       frame,
+      [
+        { x: 0, y: 0, w: frame.width, h: this.head.offsetTop + this.head.offsetHeight },
+        { x: 0, y: footTop, w: frame.width, h: frame.height - footTop },
+      ],
     );
   }
 

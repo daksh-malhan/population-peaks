@@ -46,7 +46,7 @@ export function posterLayout(format: PosterFormat, W: number, H: number): Poster
     minTitleSize: titleSize * 0.62,
     subtitleSize: (og ? 18 : 22) * u,
     mapTop: og ? H * 0.12 : margin + titleSize * 2.4 + 20 * u,
-    mapBottom: og ? H * 0.88 : legendY - 40 * u,
+    mapBottom: legendY - 40 * u,
     labelSize: 18 * u,
     legendY,
     legendSize: 16 * u,
@@ -80,6 +80,16 @@ function fitChars(text: string, max: number, size: number, measure: Measure, suf
 }
 
 /** At most two lines: shrink the type first, truncate with an ellipsis only as a last resort. */
+/**
+ * Where the map may draw: the band between the title and the legend, as the frame's half-height in
+ * NDC and how far (px) the frame's centre moves down from the image centre to sit in that band.
+ */
+export function mapFrame(L: PosterLayout, titleBottom: number, H: number): { ndcY: number; offsetY: number } {
+  const top = Math.max(L.mapTop, titleBottom + 16 * L.u);
+  const bottom = L.mapBottom;
+  return { ndcY: Math.min(0.92, Math.max(0.3, (bottom - top) / H)), offsetY: (top + bottom) / 2 - H / 2 };
+}
+
 export function wrapTitle(text: string, max: number, size: number, minSize: number, measure: Measure): { lines: string[]; size: number } {
   const words = text.split(/\s+/).filter(Boolean);
   for (let s = size; ; s = Math.max(minSize, Math.floor(s * 0.94))) {
@@ -153,8 +163,8 @@ export async function composePoster(scene: MapScene, ctx: ExportContext, format:
   const lineH = title.size * 1.12;
   const titleBottom = L.margin + lineH * title.lines.length + (ctx.subtitle ? L.subtitleSize * 1.6 : 0);
 
-  const ndcY = Math.min(0.92, (L.mapBottom - Math.max(L.mapTop, titleBottom + 16 * L.u)) / H);
-  const { image, project } = scene.renderImage(W, H, format === 'og' ? 0.62 : 0.9, Math.max(0.3, ndcY));
+  const frame = mapFrame(L, titleBottom, H);
+  const { image, project } = scene.renderImage(W, H, format === 'og' ? 0.62 : 0.9, frame.ndcY, frame.offsetY);
   g.drawImage(image, 0, 0);
 
   g.textBaseline = 'alphabetic';

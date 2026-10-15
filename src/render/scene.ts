@@ -142,6 +142,10 @@ export class MapScene {
   /** Points that must stay in frame: the region's footprint and the tallest spike's tip. */
   private fitPoints: Vector3[] = [];
   private maxHeight = BASE_HEIGHT;
+  /** Height (px) at the top of the canvas the map stays below: the stage's title. */
+  private topInset = 0;
+  /** Half-height (NDC of the stage camera's virtual frame) the map may fill. */
+  private stageNdcY = 0.86;
   private frame = 0;
   private lost = false;
   private disposed = false;
@@ -403,7 +407,7 @@ export class MapScene {
   }
 
   /** Distance at which the whole map fits the given frame (NDC half-extents) for a view direction. */
-  private fitDistance(aspect: number, polar: number, azimuth: number, ndcX = 0.9, ndcY = 0.86): number {
+  private fitDistance(aspect: number, polar: number, azimuth: number, ndcX = 0.9, ndcY = this.stageNdcY): number {
     const { min, max } = this.bounds();
     // Huge far plane: the search below must only ever be limited by the frame, not by clipping.
     const cam = new PerspectiveCamera(this.camera.fov, aspect, 0.01, 1e7);
@@ -481,10 +485,24 @@ export class MapScene {
     this.composer.setSize(w, h);
     this.composer.setPixelRatio(this.renderer.getPixelRatio());
     this.bloom.resolution.set(w, h);
-    this.camera.aspect = w / h;
-    this.camera.updateProjectionMatrix();
+    // Frame the map between the title and a 7% margin at the bottom: fit it to a taller virtual
+    // frame centred on that band, and show this canvas's window of it.
+    const top = Math.max(0.07 * h, this.topInset);
+    const bottom = 0.07 * h;
+    const offsetY = (top - bottom) / 2;
+    const fullH = h + 2 * offsetY;
+    this.stageNdcY = (Math.max(0.3 * h, h - top - bottom)) / fullH;
+    this.camera.aspect = w / fullH;
+    this.camera.setViewOffset(w, fullH, 0, 0, w, h);
     if (state) this.applyCameraState(state);
     this.requestRender();
+  }
+
+  /** Keep the map below the top `px` of the canvas (where the stage's title sits). */
+  setTopInset(px: number): void {
+    if (Math.abs(px - this.topInset) < 1) return;
+    this.topInset = px;
+    this.resize();
   }
 
   requestRender(): void {
@@ -534,12 +552,16 @@ export class MapScene {
 
   /**
    * Render the current view (same angle and zoom relative to the fitted map) at a given size
-   * into a new canvas. ndcX/ndcY set how much of the frame the map may fill.
+   * into a new canvas. ndcX/ndcY set how much of the frame the map may fill, around a centre
+   * moved offsetY px down from the image's centre.
    */
-  renderImage(width: number, height: number, ndcX: number, ndcY: number): { image: HTMLCanvasElement; project: (lng: number, lat: number) => ScreenPoint } {
+  renderImage(width: number, height: number, ndcX: number, ndcY: number, offsetY = 0): { image: HTMLCanvasElement; project: (lng: number, lat: number) => ScreenPoint } {
     const state = this.getCameraState();
-    const cam = new PerspectiveCamera(this.camera.fov, width / height, 0.1, 10000);
-    this.placeCamera(cam, state, width / height, ndcX, ndcY);
+    // Fit the map to a taller virtual frame centred where it should sit, then render this image's window of it.
+    const fullH = height + 2 * Math.abs(offsetY);
+    const cam = new PerspectiveCamera(this.camera.fov, width / fullH, 0.1, 10000);
+    cam.setViewOffset(width, fullH, 0, offsetY < 0 ? -2 * offsetY : 0, width, height);
+    this.placeCamera(cam, state, width / fullH, ndcX, (ndcY * height) / fullH);
     const prevRatio = this.renderer.getPixelRatio();
     const prevW = this.canvas.clientWidth;
     const prevH = this.canvas.clientHeight;

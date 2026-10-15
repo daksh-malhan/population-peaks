@@ -46,7 +46,7 @@ describe('placeLabels', () => {
     const placed = placeLabels(
       [
         { id: 'a', x: 100, y: 100, w: 80, h: 14 },
-        { id: 'b', x: 105, y: 104, w: 80, h: 14 },
+        { id: 'b', x: 130, y: 100, w: 80, h: 14 },
       ],
       { width: 400, height: 300 },
       18,
@@ -71,5 +71,42 @@ describe('placeLabels obstacles', () => {
     expect(p!.visible).toBe(true);
     expect(p!.side).not.toBe('above');
     expect(p!.y).toBeGreaterThanOrEqual(120);
+  });
+});
+
+describe('placeLabels dots', () => {
+  it("keeps every label off other cities' dots", () => {
+    const anchors = [
+      { id: 'a', x: 200, y: 100, w: 80, h: 14 },
+      { id: 'b', x: 200, y: 75, w: 80, h: 14 },
+      { id: 'c', x: 230, y: 110, w: 80, h: 14 },
+    ];
+    const placed = placeLabels(anchors, { width: 400, height: 300 }, 18);
+    placed.forEach((p, i) => {
+      expect(p.visible).toBe(true);
+      for (const [j, o] of anchors.entries()) {
+        if (j === i) continue;
+        const covers = o.x >= p.x - 5 && o.x <= p.x + anchors[i]!.w + 5 && o.y >= p.y - 5 && o.y <= p.y + anchors[i]!.h + 5;
+        expect(covers, `${p.id}'s label covers ${o.id}'s dot`).toBe(false);
+      }
+    });
+  });
+});
+
+describe('placeLabels priority', () => {
+  it('never hides a bigger city to spare a smaller one, and hides the smaller one instead', () => {
+    // The big city sits at the bottom-right edge with the legend to its left, so its label only fits
+    // above, over the small city's dot.
+    const placed = placeLabels(
+      [
+        { id: 'big', x: 360, y: 290, w: 80, h: 14 },
+        { id: 'small', x: 360, y: 265, w: 80, h: 14 },
+      ],
+      { width: 400, height: 300 },
+      18,
+      [{ x: 250, y: 280, w: 100, h: 20 }],
+    );
+    expect(placed[0]).toMatchObject({ visible: true, side: 'above' });
+    expect(placed[1]!.visible).toBe(false);
   });
 });

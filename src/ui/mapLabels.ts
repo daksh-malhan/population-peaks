@@ -1,4 +1,4 @@
-import { type Anchor, type Placement, placeLabels } from '../render/labels';
+import { type Anchor, type Box, type Placement, placeLabels } from '../render/labels';
 import { h } from './dom';
 
 export interface LabelPoint {
@@ -19,7 +19,8 @@ export class MapLabels {
   readonly el = h('div', { class: 'map-labels', attrs: { 'aria-hidden': 'true' } });
   private readonly nodes = new Map<string, { root: HTMLElement; text: HTMLElement; line: HTMLElement; width: number; name: string }>();
 
-  update(points: LabelPoint[], frame: { width: number; height: number }): void {
+  /** `obstacles` are areas labels must not cover, such as the title and the legend. */
+  update(points: LabelPoint[], frame: { width: number; height: number }, obstacles: readonly Box[] = []): void {
     const seen = new Set<string>();
     const anchors: Anchor[] = [];
     for (const p of points) {
@@ -38,7 +39,7 @@ export class MapLabels {
       anchors.push({ id: p.id, x: p.x, y: p.y, w: node.width, h: 16 });
       seen.add(p.id);
     }
-    const placed = new Map<string, Placement>(placeLabels(anchors, frame, GAP).map((pl) => [pl.id, pl]));
+    const placed = new Map<string, Placement>(placeLabels(anchors, frame, GAP, obstacles).map((pl) => [pl.id, pl]));
     for (const [id, node] of this.nodes) {
       const pl = placed.get(id);
       const a = anchors.find((x) => x.id === id);
