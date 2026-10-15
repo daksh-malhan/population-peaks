@@ -83,3 +83,9 @@ export function shareUrl(state: GalleryState, siteUrl: string): string {
   const path = first?.k === 'c' ? `p/${first.id.toLowerCase()}/` : '';
   return `${siteUrl}${path}#s=${encodeState(toShared(state))}`;
 }
+
+/** Cache keys no card refers to any more (a changed radius or border view leaves old regions behind). */
+export function staleKeys<T extends string>(keys: Iterable<T>, state: GalleryState, keyOf: (spec: CardSpec) => string): T[] {
+  const live = new Set(state.cards.map(keyOf));
+  return [...keys].filter((k) => !live.has(k));
+}

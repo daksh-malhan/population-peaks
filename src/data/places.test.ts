@@ -92,3 +92,12 @@ describe('browser fetch semantics', () => {
     await expect(r.country('ZZ')).resolves.toMatchObject({ id: 'ZZ' });
   });
 });
+
+describe('label candidates for a whole country or state', () => {
+  it("come from that country's own file only, unwrapped around the region", async () => {
+    const { repo: r, calls } = await repo();
+    const labels = await r.countryCities('ZX', 180);
+    expect(calls.filter((c) => c.includes('/places/'))).toEqual(['/population-peaks/data/places/ZX.json']);
+    expect(labels.find((c) => c.name === 'Meridian')!.lng).toBeCloseTo(180.3, 3);
+  });
+});

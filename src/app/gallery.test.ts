@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addCard, initialState, moveActive, removeCard, sameCard, shareUrl, specFromSearch, toShared, type GalleryState } from './gallery';
+import { addCard, initialState, moveActive, removeCard, sameCard, shareUrl, specFromSearch, staleKeys, toShared, type GalleryState } from './gallery';
 import { decodeState } from './shareState';
 
 const site = 'https://example.org/population-peaks/';
@@ -80,5 +80,13 @@ describe('share URLs', () => {
 
   it('leaves defaults out of the link', () => {
     expect(toShared({ ...initialState(), cards: [{ k: 'c', id: 'HU' }], active: 0 })).toEqual({ v: 1, cards: [{ k: 'c', id: 'HU' }] });
+  });
+});
+
+describe('cached regions', () => {
+  it('keeps only the regions the gallery still shows', () => {
+    const state = { ...initialState(), cards: [{ k: 'c' as const, id: 'HU' }, { k: 't' as const, id: '1', c: 'IN', r: 30 }], active: 0 };
+    const key = (c: { k: string; id: string; r?: number }) => `${c.k}:${c.id}:${c.r ?? ''}`;
+    expect(staleKeys(['c:HU:', 't:1:40', 't:1:30', 'c:AT:'], state, key)).toEqual(['t:1:40', 'c:AT:']);
   });
 });

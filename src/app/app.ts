@@ -21,7 +21,7 @@ import { drawThumbnail } from '../ui/thumbnail';
 import { timed } from '../perf';
 import { Toaster } from '../ui/toast';
 import { defaultTitle, formatDensity, formatPopulation } from './format';
-import { addCard, type GalleryState, moveActive, removeCard, shareUrl, specFromSearch, toShared, updateCard } from './gallery';
+import { addCard, type GalleryState, moveActive, removeCard, shareUrl, specFromSearch, staleKeys, toShared, updateCard } from './gallery';
 import { type Prefs, type StorageLike, saveGallery, savePrefs } from './persist';
 import { resolvePov, viewerTimeZone } from './pov';
 import { type CardSpec, cleanText, type LabelEdits, type PaletteId, stateFromHash, stateToHash } from './shareState';
@@ -243,10 +243,18 @@ export class App {
   private commit(next: GalleryState, render = true): void {
     this.state = next;
     this.dirty = true;
+    this.pruneRuntimes();
     if (render) this.renderAll();
     else this.renderStageText();
     window.clearTimeout(this.syncTimer);
     this.syncTimer = window.setTimeout(() => this.sync(), 300);
+  }
+
+  /** Drop cached regions no card uses any more (old radius or border view), keeping the one on stage. */
+  private pruneRuntimes(): void {
+    for (const key of staleKeys(this.runtimes.keys(), this.state, (spec) => this.runtimeKey(spec))) {
+      if (this.runtimes.get(key) !== this.activeRuntime) this.runtimes.delete(key);
+    }
   }
 
   private sync(): void {
@@ -299,7 +307,11 @@ export class App {
         rt.place = place;
         rt.grid = grid;
         rt.peak = regionPeak(grid.density, grid.mask);
-        rt.cities = await this.places.citiesIn(expand(place.region.bbox, 0.05)).catch(() => []);
+        // Whole countries and states label their own cities; circles (cities, tiny places) may cross borders.
+        const circle = place.region.shape.kind === 'circle';
+        const center = (place.region.bbox[0] + place.region.bbox[2]) / 2;
+        const cid = spec.k === 'c' ? spec.id : (spec.c ?? '');
+        rt.cities = await (circle ? this.places.citiesIn(expand(place.region.bbox, 0.05)) : this.places.countryCities(cid, center)).catch(() => []);
         const thumb = h('canvas');
         timed('thumbnail', () => drawThumbnail(thumb, grid, PALETTES[this.state.palette]));
         rt.thumb = thumb;
@@ -509,6 +521,7 @@ export class App {
     const next = this.currentPov();
     if (next === this.pov) return;
     this.pov = next;
+    this.pruneRuntimes();
     void this.showActive();
     void this.loadOthers();
   }

@@ -107,7 +107,13 @@ export class PlaceRepository {
     return p;
   }
 
-  /** Cities (≥15k people) inside an unwrapped bbox, from every country that overlaps it. */
+  /** A country's own cities (≥15k people), with longitudes unwrapped around `centerLng`. */
+  async countryCities(cid: string, centerLng: number): Promise<CityLabel[]> {
+    const f = await this.country(cid);
+    return f.cities.map(([id, name, lng0, lat, pop]) => ({ id, name, lng: lng0 + 360 * Math.round((centerLng - lng0) / 360), lat, pop }));
+  }
+
+  /** Cities (≥15k people) inside an unwrapped bbox, from every country that overlaps it (for circles). */
   async citiesIn(bbox: BBox): Promise<CityLabel[]> {
     const center = (bbox[0] + bbox[2]) / 2;
     const overlaps = (b: BBox) =>
