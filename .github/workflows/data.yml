@@ -1,0 +1,82 @@
+name: Build data release
+
+# Downloads Kontur Population (all 250 country files), builds the tile pyramid, places,
+# search index and per-country previews, and publishes them as a checksummed release.
+# Deploys use the release named in data-release.json, so a new release goes live only
+# after a reviewed pull request updates that file.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, e.g. 2023-11-01-r1
+        required: true
+      countries:
+        description: "'all' or comma-separated ISO codes (for trial runs)"
+        default: all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and publish data
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    permissions:
+      contents: write # create the release
+    env:
+      VERSION: ${{ inputs.version }}
+      COUNTRIES: ${{ inputs.countries }}
+    steps:
+      - name: Check inputs
+        run: |
+          [[ "$VERSION" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}-r[0-9]+$ ]] || { echo "bad version: $VERSION"; exit 1; }
+          [[ "$COUNTRIES" =~ ^(all|[A-Z]{2}(,[A-Z]{2})*)$ ]] || { echo "bad countries: $COUNTRIES"; exit 1; }
+      - name: Free disk space
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL && df -h /
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: pipeline/requirements*.txt
+      - run: pip install --require-hashes -r pipeline/requirements.txt
+      - name: Tiles from Kontur Population
+        working-directory: pipeline
+        run: python -m pp_pipeline.build tiles --countries "$COUNTRIES" --work "$RUNNER_TEMP/work" --cache "$RUNNER_TEMP/work/cache" --out "$RUNNER_TEMP/out/data"
+      - name: Places, search index, border views
+        working-directory: pipeline
+        run: |
+          python -m pp_pipeline.build fetch-places --src "$RUNNER_TEMP/work/src"
+          python -m pp_pipeline.build places --src "$RUNNER_TEMP/work/src" --out "$RUNNER_TEMP/out/data" --version "$VERSION"
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Previews (headless Chromium, software WebGL)
+        run: |
+          npx vite build
+          node scripts/copy-data.mjs "$RUNNER_TEMP/out/data" dist/data
+          npx playwright install --with-deps chromium
+          node scripts/render-previews.ts --dist dist --concurrency 3 --software
+      - name: Package
+        run: |
+          tar -C dist -czf "data-$VERSION.tar.gz" data
+          sha256sum "data-$VERSION.tar.gz" | tee "data-$VERSION.tar.gz.sha256"
+          du -sh dist/data
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "data-$VERSION" "data-$VERSION.tar.gz" "data-$VERSION.tar.gz.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "Data $VERSION" \
+            --notes "Built by run $GITHUB_RUN_ID from Kontur Population 2023-11-01 (CC BY 4.0), Natural Earth 5.1.2 and GeoNames. sha256: $(cut -d' ' -f1 "data-$VERSION.tar.gz.sha256")"

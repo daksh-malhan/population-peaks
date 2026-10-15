@@ -1,0 +1,11 @@
+name: Idea or request
+description: Suggest a feature, a place, or a better default
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe what you're trying to make and what's missing.
+    validations:
+      required: true

@@ -1,0 +1,23 @@
+name: Bug report
+description: Something on the site doesn't work or looks wrong
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to the map
+      description: Use "Copy link" on the site so we can open the same gallery.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: e.g. Safari 19 on iPhone 15
+    validations:
+      required: true
