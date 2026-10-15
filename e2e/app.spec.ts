@@ -111,14 +111,28 @@ test('the page has the security policy and no third-party requests', async ({ pa
   expect([...origins]).toEqual([new URL(page.url()).origin]);
 });
 
-test('the gallery is keyboard operable', async ({ page }) => {
+test('the gallery is keyboard operable and keeps focus while cards load', async ({ page }) => {
   await page.goto('./');
   await ready(page);
+  // Hold Testland's file, so its card finishes loading (and the gallery updates) while another card has focus.
+  let release = (): void => {};
+  const held = new Promise<void>((r) => (release = () => r()));
+  await page.route('**/places/ZZ.json', async (route) => {
+    await held;
+    await route.continue();
+  });
   await addPlace(page, 'testland', /Testland/);
-  await page.locator('.gallery .card').first().focus();
+  const cards = page.locator('.gallery .card:not(.card-add)');
+  await cards.first().focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.gallery .card').first()).toHaveAttribute('aria-current', 'true');
-  await page.getByRole('button', { name: 'Remove Dateland' }).focus();
+  await expect(cards.first()).toHaveAttribute('aria-current', 'true');
+  await expect(cards.nth(1)).toContainText('Loading');
+  const remove = page.getByRole('button', { name: 'Remove Dateland' });
+  await remove.focus();
+  release();
+  await expect(cards.nth(1)).toContainText('people');
+  await expect(remove).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.gallery .card:not(.card-add)')).toHaveCount(1);
+  await expect(cards).toHaveCount(1);
+  await expect(page.getByRole('button', { name: 'Remove Testland' })).toBeFocused();
 });

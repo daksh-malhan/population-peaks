@@ -21,7 +21,7 @@ import { drawThumbnail } from '../ui/thumbnail';
 import { timed } from '../perf';
 import { Toaster } from '../ui/toast';
 import { defaultTitle, formatDensity, formatPopulation } from './format';
-import { addCard, type GalleryState, moveActive, removeCard, shareUrl, specFromSearch, staleKeys, toShared, updateCard } from './gallery';
+import { addCard, cardKey, type GalleryState, moveActive, removeCard, shareUrl, specFromSearch, staleKeys, toShared, updateCard } from './gallery';
 import { type Prefs, type StorageLike, saveGallery, savePrefs } from './persist';
 import { resolvePov, viewerTimeZone } from './pov';
 import { type CardSpec, cleanText, type LabelEdits, type PaletteId, stateFromHash, stateToHash } from './shareState';
@@ -646,7 +646,7 @@ export class App {
       this.state.cards.map((spec) => {
         const rt = this.runtimes.get(this.runtimeKey(spec));
         return {
-          key: this.runtimeKey(spec),
+          key: cardKey(spec),
           name: rt?.place?.name ?? (spec.k === 'c' ? (this.manifest.countries.find((c) => c.id === spec.id)?.name ?? spec.id) : '…'),
           status: rt?.status ?? 'loading',
           population: rt?.grid?.stats.population,

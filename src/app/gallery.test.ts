@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addCard, initialState, moveActive, removeCard, sameCard, shareUrl, specFromSearch, staleKeys, toShared, type GalleryState } from './gallery';
+import { addCard, cardKey, initialState, moveActive, removeCard, sameCard, shareUrl, specFromSearch, staleKeys, toShared, type GalleryState } from './gallery';
 import { decodeState } from './shareState';
 
 const site = 'https://example.org/population-peaks/';
@@ -23,6 +23,18 @@ describe('gallery state', () => {
 
   it('treats the same city at a different radius as the same place', () => {
     expect(sameCard({ k: 't', id: '1', c: 'IN', r: 40 }, { k: 't', id: '1', c: 'IN', r: 25 })).toBe(true);
+    expect(cardKey({ k: 't', id: '1', c: 'IN', r: 40 })).toBe(cardKey({ k: 't', id: '1', c: 'IN', r: 25 }));
+  });
+
+  it('gives different places different card keys, whatever their ids contain', () => {
+    const specs = [
+      { k: 'c', id: 'IN' },
+      { k: 's', id: 'IN', c: 'IN' },
+      { k: 't', id: '1', c: 'IN' },
+      { k: 't', id: '1:x', c: 'IN' },
+      { k: 't', id: 'x', c: 'IN:1' },
+    ] as const;
+    expect(new Set(specs.map((s) => cardKey(s))).size).toBe(specs.length);
   });
 
   it('refuses a 25th place', () => {

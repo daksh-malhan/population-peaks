@@ -21,6 +21,11 @@ export function sameCard(a: CardSpec, b: CardSpec): boolean {
   return a.k === b.k && a.id === b.id && (a.c ?? '') === (b.c ?? '');
 }
 
+/** Which place a card shows, ignoring settings such as a city's radius. Equal exactly when `sameCard` is. */
+export function cardKey(spec: CardSpec): string {
+  return JSON.stringify([spec.k, spec.c ?? '', spec.id]);
+}
+
 export type AddResult = 'added' | 'duplicate' | 'full';
 
 export function addCard(state: GalleryState, spec: CardSpec): { state: GalleryState; result: AddResult } {
