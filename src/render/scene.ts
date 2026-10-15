@@ -25,7 +25,7 @@ import type { MultiPolygon } from '../geo/geomCodec';
 import { timed } from '../perf';
 import { type Laea, makeLaea } from '../geo/laea';
 import type { RegionGrid } from '../region/types';
-import { buildHeights, colorT, glowFor } from './heightfield';
+import { buildHeights, type ColorRange, colorT, DEFAULT_RANGE, glowFor } from './heightfield';
 import { type Palette, rampColor } from './palettes';
 
 /** World units across the longer side of the map. */
@@ -41,6 +41,8 @@ export interface SceneSettings {
   heightScale: number;
   /** Density that reaches full height: the place's own peak, or the gallery's on a shared scale. */
   peak: number;
+  /** Densities the colour ramp spans; the poster's fixed scale unless a dense place has its own. */
+  colors?: ColorRange;
 }
 
 export interface CameraState {
@@ -230,6 +232,11 @@ export class MapScene {
     timed('fit', () => this.resetView());
   }
 
+  /** The densities the map's colours span, for legends. */
+  get colorRange(): ColorRange {
+    return this.settings.colors ?? DEFAULT_RANGE;
+  }
+
   setSettings(partial: Partial<SceneSettings>): void {
     const paletteChanged = partial.palette && partial.palette !== this.settings.palette;
     this.settings = { ...this.settings, ...partial };
@@ -261,7 +268,7 @@ export class MapScene {
         pos[i * 3] = (c + 0.5 - W / 2) * s;
         pos[i * 3 + 1] = this.heights[i]!;
         pos[i * 3 + 2] = (r + 0.5 - H / 2) * s;
-        const k = Math.round(colorT(density[i]!) * 255) * 3;
+        const k = Math.round(colorT(density[i]!, this.colorRange) * 255) * 3;
         col[i * 3] = lut[k]!;
         col[i * 3 + 1] = lut[k + 1]!;
         col[i * 3 + 2] = lut[k + 2]!;

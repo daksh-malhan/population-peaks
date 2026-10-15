@@ -29,7 +29,7 @@ export interface SharedState {
   pal?: PaletteId;
   /** Spike height multiplier */
   h?: number;
-  /** Height scale: each place on its own, or the same across the gallery */
+  /** Heights and colours: each place on its own scale, or the same across the gallery */
   sc?: 'own' | 'same';
   /** Poster author line */
   au?: string;

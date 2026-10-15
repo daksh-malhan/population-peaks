@@ -14,6 +14,7 @@
 </p>
 
 Every spike is people: the taller and brighter it is, the more people live per square kilometre.
+Colours run from low to 5,000+ people/km², like the original. Very dense places (Vatican City, Singapore, a 40 km circle around Tokyo) switch to their own range, shown on the legend, so they keep their shape instead of turning into a white blob.
 The style follows the population maps by [Tulparmaps](https://www.instagram.com/tulparmaps/),
 and the data is the same: Kontur Population 2023, 400 m hexagons covering the whole world.
 

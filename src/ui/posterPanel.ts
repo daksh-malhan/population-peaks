@@ -93,7 +93,8 @@ export class PosterPanel {
       paletteGroup.append(h('label', { class: `swatch swatch-${p.id}` }, input, h('span', { class: 'swatch-chip', attrs: { 'aria-hidden': 'true' } }), h('span', { class: 'swatch-name', text: p.name })));
     }
 
-    const scaleGroup = h('div', { class: 'choice', attrs: { role: 'radiogroup', 'aria-label': 'Height scale' } });
+    const scaleHint = h('span', { class: 'field-hint', id: nextId('scale-hint'), text: 'Same for all places compares heights and colours directly.' });
+    const scaleGroup = h('div', { class: 'choice', attrs: { role: 'radiogroup', 'aria-label': 'Scale', 'aria-describedby': scaleHint.id } });
     for (const [value, text] of [['own', 'Each place on its own'], ['same', 'Same for all places']] as const) {
       const input = h('input', { attrs: { type: 'radio', name: 'scale', value } });
       input.addEventListener('change', () => input.checked && handlers.onScale(value));
@@ -161,7 +162,7 @@ export class PosterPanel {
         { class: 'panel-group', attrs: { 'aria-label': 'Spikes' } },
         h('h2', { class: 'panel-heading', text: 'Spikes' }),
         h('div', { class: 'field field-range' }, h('label', { class: 'field-label', text: 'Spike height', attrs: { for: 'height' } }), this.heightOut, this.height),
-        h('fieldset', { class: 'field' }, h('legend', { class: 'field-label', text: 'Height scale' }), scaleGroup),
+        h('fieldset', { class: 'field' }, h('legend', { class: 'field-label', text: 'Scale' }), scaleGroup, scaleHint),
       ),
       this.radiusGroup,
       h(

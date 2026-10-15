@@ -1,4 +1,4 @@
-import { colorT } from '../render/heightfield';
+import { type ColorRange, colorT, DEFAULT_RANGE } from '../render/heightfield';
 import { type Palette, hexToRgb, rampColor } from '../render/palettes';
 import type { RegionGrid } from '../region/types';
 
@@ -6,7 +6,7 @@ import type { RegionGrid } from '../region/types';
  * A top-down "plan view" of a region for gallery cards, drawn with putImageData
  * (written, never read back, so anti-fingerprinting noise can't touch it).
  */
-export function drawThumbnail(canvas: HTMLCanvasElement, grid: RegionGrid, palette: Palette, width = 160, height = 200): void {
+export function drawThumbnail(canvas: HTMLCanvasElement, grid: RegionGrid, palette: Palette, range: ColorRange = DEFAULT_RANGE, width = 160, height = 200): void {
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
@@ -25,7 +25,7 @@ export function drawThumbnail(canvas: HTMLCanvasElement, grid: RegionGrid, palet
       let rgb = bg;
       if (gx >= 0 && gy >= 0 && gx < grid.width && gy < grid.height) {
         const i = gy * grid.width + gx;
-        if (grid.mask[i]! >= 0.5) rgb = rampColor(palette, colorT(grid.density[i]!)).map((v) => Math.round(v * 255));
+        if (grid.mask[i]! >= 0.5) rgb = rampColor(palette, colorT(grid.density[i]!, range)).map((v) => Math.round(v * 255));
       }
       img.data[o] = rgb[0]!;
       img.data[o + 1] = rgb[1]!;

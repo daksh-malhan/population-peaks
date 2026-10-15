@@ -1,6 +1,7 @@
 import type { ExportContext, Exporter } from '../app/app';
 import { h } from '../ui/dom';
 import { type Box, placeLabels } from './labels';
+import { legendLabels } from './heightfield';
 import { PALETTES, rampColor } from './palettes';
 import type { MapScene } from './scene';
 
@@ -225,7 +226,8 @@ export async function composePoster(scene: MapScene, ctx: ExportContext, format:
     g.shadowBlur = 0;
   });
 
-  // Legend, like the reference: "People per km²", a ramp bar, Low … 5,000+.
+  // Legend, like the reference: "People per km²", a ramp bar, Low … 5,000+ (or a dense place's own range).
+  const [lowLabel, highLabel] = legendLabels(scene.colorRange);
   g.font = `400 ${L.legendSize}px ${FONT}`;
   g.fillStyle = '#e6e6ea';
   g.fillText('People per km²', L.margin, L.legendY);
@@ -239,9 +241,9 @@ export async function composePoster(scene: MapScene, ctx: ExportContext, format:
   g.font = `400 ${L.legendSize * 1.1}px ${FONT}`;
   g.fillStyle = '#e6e6ea';
   const scaleY = barY + L.barHeight + L.legendSize * 1.6;
-  g.fillText('Low', L.margin, scaleY);
+  g.fillText(lowLabel, L.margin, scaleY);
   g.textAlign = 'right';
-  g.fillText('5,000+', L.margin + L.barWidth, scaleY);
+  g.fillText(highLabel, L.margin + L.barWidth, scaleY);
 
   // Credits: optional author on the left, the data source (always) on the right.
   const credit = (label: string, value: string, x: number, align: CanvasTextAlign) => {
