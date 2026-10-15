@@ -1,22 +1,37 @@
 version: 2
+# Every ecosystem waits a week before proposing a new release, so a compromised one is likely
+# caught first. Security updates are not delayed.
 updates:
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # typescript-eslint supports TypeScript below 6.1 (still true in 8.71.2). Remove once it supports 7.
+      - dependency-name: typescript
+        versions: ['>=6.1.0']
+      # Node's types follow the Node version the site is built with (.nvmrc).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
   - package-ecosystem: pip
     directory: /pipeline
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 3
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     groups:
       actions:
         patterns: ['*']
