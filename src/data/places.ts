@@ -146,6 +146,16 @@ function regionFor(outline: Outline): Pick<ResolvedPlace, 'tiny' | 'region'> {
   return { tiny: false, region: { bbox: outline.bbox, shape: { kind: 'polygons', polygons } } };
 }
 
+/** The biggest city within `km` of a point: a peak "near Moscow" says more than its nearest district. */
+export function biggestCityNear(cities: readonly CityLabel[], lng: number, lat: number, km = 15): string | undefined {
+  const kx = 111.32 * Math.cos((lat * Math.PI) / 180);
+  let best: CityLabel | undefined;
+  for (const c of cities) {
+    if (((c.lng - lng) * kx) ** 2 + ((c.lat - lat) * 110.57) ** 2 <= km * km && (!best || c.pop > best.pop)) best = c;
+  }
+  return best?.name;
+}
+
 export function clampRadius(km: number | undefined): number {
   const { min, max, default: def } = LIMITS.cityRadiusKm;
   if (km === undefined || !Number.isFinite(km)) return def;

@@ -1,6 +1,6 @@
 import { BASE_URL, DATA_URL, SITE_URL } from '../config';
 import type { Manifest } from '../data/manifest';
-import { type CityLabel, PlaceRepository, type PlaceRef, type ResolvedPlace, resolvePlace } from '../data/places';
+import { biggestCityNear, type CityLabel, PlaceRepository, type PlaceRef, type ResolvedPlace, resolvePlace } from '../data/places';
 import { loadSearch, type SearchIndex, type SearchItem } from '../data/search';
 import type { BBox } from '../geo/geomCodec';
 import { makeLaea } from '../geo/laea';
@@ -639,16 +639,7 @@ export class App {
   }
 
   private nearestCity(lng: number, lat: number, rt = this.activeRuntime): string | undefined {
-    let best: CityLabel | undefined;
-    let bestD = Infinity;
-    for (const c of rt?.cities ?? []) {
-      const d = (c.lng - lng) ** 2 * Math.cos((lat * Math.PI) / 180) ** 2 + (c.lat - lat) ** 2;
-      if (d < bestD) {
-        bestD = d;
-        best = c;
-      }
-    }
-    return best && bestD < 0.15 ** 2 ? best.name : undefined;
+    return biggestCityNear(rt?.cities ?? [], lng, lat);
   }
 
   private renderGallery(): void {

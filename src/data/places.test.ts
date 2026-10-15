@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readJson } from '../test/fixture';
 import { fixtureFetch } from '../test/fetch';
 import { parseManifest } from './manifest';
-import { PlaceRepository, resolvePlace } from './places';
+import { biggestCityNear, type CityLabel, PlaceRepository, resolvePlace } from './places';
 
 async function repo() {
   const manifest = parseManifest(await readJson('manifest.json'));
@@ -99,5 +99,23 @@ describe('label candidates for a whole country or state', () => {
     const labels = await r.countryCities('ZX', 180);
     expect(calls.filter((c) => c.includes('/places/'))).toEqual(['/population-peaks/data/places/ZX.json']);
     expect(labels.find((c) => c.name === 'Meridian')!.lng).toBeCloseTo(180.3, 3);
+  });
+});
+
+describe('the city a peak is named after', () => {
+  const city = (name: string, lng: number, lat: number, pop: number): CityLabel => ({ id: name, name, lng, lat, pop });
+  // A peak in northern Moscow: a district's point is nearer, but the city is what people know.
+  const cities = [city('Vostochnoe Degunino', 37.56, 55.88, 100_000), city('Moscow', 37.62, 55.75, 10_000_000), city('Tver', 35.9, 56.86, 400_000)];
+
+  it('is the biggest city within 15 km', () => {
+    expect(biggestCityNear(cities, 37.56, 55.87)).toBe('Moscow');
+  });
+
+  it('is nothing when no city is that close', () => {
+    expect(biggestCityNear(cities, 36.5, 56.3)).toBeUndefined();
+  });
+
+  it('measures across the 180° meridian in the place frame', () => {
+    expect(biggestCityNear([city('Date City', 180.5, -18, 150_000)], 180.45, -18.02)).toBe('Date City');
   });
 });
