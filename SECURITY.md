@@ -12,7 +12,7 @@ Credit is given in the release notes unless you'd rather stay anonymous.
 
 ## Scope
 
-- The website at <https://daksh-malhan.github.io/population-peaks/>
+- The web app in `src/`
 - The data pipeline in `pipeline/` and the GitHub Actions workflows in `.github/`
 
 Out of scope: the accuracy of the source data (Kontur Population, Natural Earth, GeoNames);

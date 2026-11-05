@@ -2,8 +2,6 @@
 
 **Turn any country, state or city into a glowing 3D map of where its people live, then export it as a poster.**
 
-[**Open the site →**](https://daksh-malhan.github.io/population-peaks/)
-
 [![CI](https://github.com/daksh-malhan/population-peaks/actions/workflows/ci.yml/badge.svg)](https://github.com/daksh-malhan/population-peaks/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/daksh-malhan/population-peaks/actions/workflows/codeql.yml/badge.svg)](https://github.com/daksh-malhan/population-peaks/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/daksh-malhan/population-peaks/badge)](https://scorecard.dev/viewer/?uri=github.com/daksh-malhan/population-peaks)
